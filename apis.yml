@@ -19,6 +19,7 @@ tags:
   - Developer Platform
 created: '2026-05-02'
 modified: '2026-05-02'
+x-profiled: '2026-05'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -43,6 +44,10 @@ apis:
       - type: OpenAPI
         url: >-
           https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/openapi/sanity-openapi.yml
+      - type: JSONSchema
+        url: json-schema/sanity-document-schema.json
+      - type: JSONSchema
+        url: json-schema/sanity-webhook-schema.json
 
   - aid: sanity:sanity-mutation-api
     name: Sanity Mutation API
@@ -199,6 +204,14 @@ common:
     url: https://www.sanity.io/blog
   - type: Status
     url: https://status.sanity.io
+  - type: Vocabulary
+    url: vocabulary/sanity-vocabulary.yml
+  - type: SpectralRules
+    url: rules/sanity-rules.yml
+  - type: Capabilities
+    url: capabilities/content-management.yaml
+  - type: JSONLD
+    url: json-ld/sanity-context.jsonld
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
