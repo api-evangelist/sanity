@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://your-project-id.api.sanity.io/v2024-01-01/data/query/production?query=*[_type == 'post'] | order(publishedAt desc) [0..9] { _id, title, slug, publishedAt }",
+    "headers": {
+      "Authorization": "Bearer {sanity_api_token}"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "ms": 12,
+      "query": "*[_type == 'post'] | order(publishedAt desc) [0..9] { _id, title, slug, publishedAt }",
+      "result": [
+        {
+          "_id": "abc123",
+          "title": "Getting Started with Sanity",
+          "slug": { "current": "getting-started-with-sanity" },
+          "publishedAt": "2026-04-15T10:00:00Z"
+        },
+        {
+          "_id": "def456",
+          "title": "Content Modeling Best Practices",
+          "slug": { "current": "content-modeling-best-practices" },
+          "publishedAt": "2026-04-10T09:00:00Z"
+        }
+      ],
+      "syncTags": ["s1:abc123"]
+    }
+  }
+}

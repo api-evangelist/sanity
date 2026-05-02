@@ -1,0 +1,43 @@
+{
+  "title": "Sanity Document Structure",
+  "description": "Structure documentation for Sanity Content Lake documents",
+  "type": "object",
+  "fields": [
+    {
+      "name": "_id",
+      "type": "string",
+      "description": "Unique document identifier. Draft documents are prefixed with 'drafts.'",
+      "required": true,
+      "example": "abc123def456"
+    },
+    {
+      "name": "_type",
+      "type": "string",
+      "description": "Schema type identifier mapping to a Sanity schema definition",
+      "required": true,
+      "example": "post"
+    },
+    {
+      "name": "_rev",
+      "type": "string",
+      "description": "Revision ID, updated with each mutation for optimistic concurrency",
+      "required": false,
+      "example": "rev_abc123"
+    },
+    {
+      "name": "_createdAt",
+      "type": "datetime",
+      "description": "UTC timestamp when the document was created",
+      "required": false,
+      "example": "2026-01-15T10:00:00Z"
+    },
+    {
+      "name": "_updatedAt",
+      "type": "datetime",
+      "description": "UTC timestamp when the document was last modified",
+      "required": false,
+      "example": "2026-05-01T14:30:00Z"
+    }
+  ],
+  "notes": "Additional fields are document-type-specific and defined in the Sanity Studio schema."
+}

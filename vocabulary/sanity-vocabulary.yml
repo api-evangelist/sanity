@@ -1,0 +1,127 @@
+vocabulary:
+  provider: Sanity
+  description: >-
+    Domain vocabulary for the Sanity composable content platform, covering
+    Content Lake, GROQ query language, structured content modeling, and
+    headless CMS concepts.
+  created: '2026-05-02'
+  modified: '2026-05-02'
+  terms:
+    - term: Content Lake
+      definition: >-
+        Sanity's hosted real-time content store where structured documents
+        are persisted. All content is stored as flexible JSON documents
+        and queryable via GROQ.
+      tags:
+        - Platform
+        - Storage
+        - Core
+
+    - term: GROQ
+      definition: >-
+        Graph-Relational Object Queries — Sanity's open-source query
+        language for querying Content Lake. Supports filtering, sorting,
+        projections, joins, and aggregations.
+      tags:
+        - Query Language
+        - Core
+        - API
+
+    - term: Dataset
+      definition: >-
+        A named collection of documents within a Sanity project. Common
+        dataset names include "production" and "staging". Each project
+        can have multiple datasets.
+      tags:
+        - Data Organization
+        - Project Structure
+
+    - term: Document
+      definition: >-
+        The fundamental unit of content in Sanity. Documents are JSON
+        objects with system-managed fields (_id, _type, _rev, _createdAt,
+        _updatedAt) and user-defined custom fields.
+      tags:
+        - Core
+        - Content
+        - Data Model
+
+    - term: Mutation
+      definition: >-
+        A write operation on Content Lake. Mutations include create,
+        createOrReplace, createIfNotExists, patch, and delete. Multiple
+        mutations can be batched in a single API call for atomicity.
+      tags:
+        - API
+        - Write Operations
+        - Core
+
+    - term: Perspective
+      definition: >-
+        A query parameter controlling which content version is returned.
+        Values include "published" (live content), "drafts" (unpublished
+        edits), and "raw" (all document versions).
+      tags:
+        - API
+        - Content Versioning
+        - Query
+
+    - term: Sanity Studio
+      definition: >-
+        Sanity's open-source, customizable editorial interface built in
+        React. Can be hosted anywhere and connects to Content Lake via
+        the Sanity API.
+      tags:
+        - Product
+        - Editor
+        - Open Source
+
+    - term: Revision
+      definition: >-
+        A unique identifier (_rev) tracking each version of a document.
+        Used for optimistic concurrency control to prevent conflicting
+        mutations.
+      tags:
+        - Versioning
+        - Concurrency
+        - Data Model
+
+    - term: SSE
+      definition: >-
+        Server-Sent Events — the HTTP streaming protocol used by the
+        Sanity Listen API to deliver real-time content change events
+        to subscribed clients.
+      tags:
+        - Real-Time
+        - Streaming
+        - Protocol
+
+    - term: Schema
+      definition: >-
+        A type definition describing the structure and validation rules
+        for documents in a Sanity project. Defined in Sanity Studio
+        using the @sanity/types library.
+      tags:
+        - Content Modeling
+        - Validation
+        - Studio
+
+    - term: Portable Text
+      definition: >-
+        Sanity's open specification for block content — a normalized,
+        serializable format for rich text that is renderer-agnostic.
+        Stored as structured arrays in Content Lake.
+      tags:
+        - Rich Text
+        - Specification
+        - Content Modeling
+
+    - term: Projection
+      definition: >-
+        A GROQ construct that selects and reshapes fields from query
+        results, similar to a SQL SELECT clause. Used to fetch only
+        the required fields.
+      tags:
+        - GROQ
+        - Query
+        - Performance

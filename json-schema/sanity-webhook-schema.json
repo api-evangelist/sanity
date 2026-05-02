@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/sanity/json-schema/webhook.json",
+  "title": "Sanity Webhook",
+  "description": "Schema for a Sanity webhook configuration for receiving event-driven content notifications.",
+  "type": "object",
+  "required": ["name", "url", "dataset", "on"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique webhook identifier (assigned by Sanity)"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable webhook name"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Target URL to receive webhook POST requests"
+    },
+    "dataset": {
+      "type": "string",
+      "description": "Dataset to watch for changes",
+      "examples": ["production", "staging"]
+    },
+    "filter": {
+      "type": "string",
+      "description": "GROQ filter expression to match specific documents",
+      "examples": ["_type == 'post'", "_type in ['post', 'page']"]
+    },
+    "projection": {
+      "type": "string",
+      "description": "GROQ projection to shape the webhook payload"
+    },
+    "on": {
+      "type": "array",
+      "description": "Events that trigger the webhook",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["create", "update", "delete"]
+      }
+    },
+    "secret": {
+      "type": "string",
+      "description": "Optional secret for signing webhook payloads (HMAC-SHA256)"
+    },
+    "isDisabled": {
+      "type": "boolean",
+      "description": "Whether the webhook is currently disabled",
+      "default": false
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

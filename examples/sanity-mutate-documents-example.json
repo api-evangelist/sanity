@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://your-project-id.api.sanity.io/v2024-01-01/data/mutate/production",
+    "headers": {
+      "Authorization": "Bearer {sanity_api_token}",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "mutations": [
+        {
+          "create": {
+            "_type": "post",
+            "title": "New Blog Post",
+            "slug": {
+              "_type": "slug",
+              "current": "new-blog-post"
+            },
+            "publishedAt": "2026-05-02T10:00:00Z",
+            "body": "This is the post content."
+          }
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "transactionId": "txn_abc123xyz",
+      "results": [
+        {
+          "id": "drafts.new-document-id",
+          "operation": "create"
+        }
+      ]
+    }
+  }
+}

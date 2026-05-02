@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api-evangelist.github.io/sanity/json-schema/document.json",
+  "title": "Sanity Document",
+  "description": "Base schema for a Sanity Content Lake document. All documents in Content Lake include system-managed underscore-prefixed fields.",
+  "type": "object",
+  "required": ["_id", "_type"],
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "Unique document identifier. Drafts are prefixed with 'drafts.'",
+      "examples": ["abc123", "drafts.abc123"]
+    },
+    "_type": {
+      "type": "string",
+      "description": "Document type identifier matching the schema definition",
+      "examples": ["post", "author", "page", "sanity.imageAsset"]
+    },
+    "_rev": {
+      "type": "string",
+      "description": "Revision identifier, updated on each mutation"
+    },
+    "_createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of document creation"
+    },
+    "_updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of last document update"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,73 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "sanity": "https://api-evangelist.github.io/sanity/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "ContentLake": {
+      "@id": "sanity:ContentLake",
+      "@type": "schema:DataCatalog",
+      "schema:description": "Sanity's hosted content store for structured content documents"
+    },
+
+    "SanityDocument": {
+      "@id": "sanity:Document",
+      "@type": "schema:CreativeWork"
+    },
+
+    "Dataset": {
+      "@id": "sanity:Dataset",
+      "@type": "schema:Dataset",
+      "schema:description": "A named collection of documents within a Sanity project"
+    },
+
+    "Project": {
+      "@id": "sanity:Project",
+      "@type": "schema:SoftwareApplication",
+      "schema:description": "A Sanity workspace containing datasets, schemas, and configurations"
+    },
+
+    "Webhook": {
+      "@id": "sanity:Webhook",
+      "@type": "schema:WebAPI",
+      "schema:description": "An event-driven notification endpoint for content changes"
+    },
+
+    "_id": {
+      "@id": "schema:identifier",
+      "@type": "xsd:string"
+    },
+
+    "_type": {
+      "@id": "schema:additionalType",
+      "@type": "xsd:string"
+    },
+
+    "_createdAt": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+
+    "_updatedAt": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+
+    "GROQ": {
+      "@id": "sanity:GROQ",
+      "@type": "schema:Language",
+      "schema:description": "Graph-Relational Object Queries — Sanity's content query language"
+    },
+
+    "mutation": {
+      "@id": "sanity:Mutation",
+      "@type": "schema:Action"
+    },
+
+    "perspective": {
+      "@id": "sanity:ContentPerspective",
+      "@type": "xsd:string"
+    }
+  }
+}

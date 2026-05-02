@@ -1,0 +1,75 @@
+rules:
+  sanity-bearer-auth-required:
+    description: All Sanity API endpoints must use Bearer token authentication
+    message: "Endpoint {{path}} must use BearerAuth security scheme"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          properties:
+            security:
+              type: array
+
+  sanity-https-servers-only:
+    description: Sanity API servers must use HTTPS
+    message: "Server URL must begin with https://"
+    severity: error
+    given: "$.servers[*]"
+    then:
+      field: url
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  sanity-operation-id-required:
+    description: All operations must define operationId for client code generation
+    message: "Operation at {{path}} must have operationId"
+    severity: error
+    given: "$.paths[*][*]"
+    then:
+      field: operationId
+      function: truthy
+
+  sanity-tags-required:
+    description: All operations must have tags for grouping
+    message: "Operation {{operationId}} must have at least one tag"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: tags
+      function: truthy
+
+  sanity-dataset-path-parameter:
+    description: Data operations should include dataset as path parameter
+    message: "Data operation paths should include {dataset} path parameter"
+    severity: warn
+    given: "$.paths['/data/*'][*]"
+    then:
+      field: parameters
+      function: truthy
+
+  sanity-response-200-defined:
+    description: All Sanity operations should define a 200 or 201 response
+    message: "Operation {{path}} should define a success response"
+    severity: warn
+    given: "$.paths[*][*].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          anyOf:
+            - required: ["200"]
+            - required: ["201"]
+
+  sanity-description-required:
+    description: All operations must have a description
+    message: "Operation {{operationId}} must have a description"
+    severity: warn
+    given: "$.paths[*][*]"
+    then:
+      field: description
+      function: truthy
