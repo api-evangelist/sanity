@@ -1,0 +1,13 @@
+{
+  "repo": "sanity",
+  "feeds": [
+    {
+      "source": "https://www.sanity.io/blog",
+      "feed_url": "https://www.sanity.io/feed/rss",
+      "saved": 10,
+      "title": "Sanity.io"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:35:23Z"
+}
