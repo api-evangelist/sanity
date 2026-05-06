@@ -1,206 +1,119 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Sanity
+providerId: sanity
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
+tags:
+  - FinOps
+  - FOCUS
+  - Headless CMS
+  - Content Management
+  - Developer Platform
+description: FOCUS-aligned FinOps for Sanity. Tiered SaaS subscription (per-seat) with included monthly
+  quotas and metered overages on CDN requests, direct API requests, asset storage, and bandwidth.
+sources:
+  - https://www.sanity.io/pricing
+  - https://www.sanity.io/docs/api-cdn
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: Sanity
-providerId: sanity
-publisherName: Sanity
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - Headless CMS
-  - Content Management
-  - GROQ
-  - Real-Time
-  - Structured Content
-  - Developer Platform
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Sanity API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: Sanity.io
+serviceCategory: Developer Tools / Headless CMS
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Tiered Subscription + Usage Overage
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Refund
+    - Credit
 focusColumns:
   ServiceName: Sanity
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Developer Tools
+  ServiceSubcategory: Headless CMS
   ProviderName: Sanity
-  PublisherName: Sanity
-  InvoiceIssuerName: Sanity
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Sanity.io
+  InvoiceIssuerName: Sanity.io
   BillingCurrency: USD
   ChargeCategory: Usage
+  PricingUnit: seat-month, request, GB
 meters:
-  - name: api_requests
-    description: Count of billable API requests
+  - name: seat_subscription
+    description: Per-seat monthly subscription on Growth ($15/seat/month, up to 50 seats).
+    unit: seat-month
+    aggregation: sum
+    dimensions:
+      - plan
+      - role
+  - name: api_cdn_requests
+    description: API CDN request count; first 1M/month included on Free and Growth, then $1 per 250K
+      on Growth.
     unit: request
     aggregation: sum
     dimensions:
+      - dataset
+      - plan
+  - name: api_requests
+    description: Direct (non-CDN) API request count; first 250K/month included on Free and Growth, then
+      $1 per 25K on Growth.
+    unit: request
+    aggregation: sum
+    dimensions:
+      - dataset
       - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
+      - plan
+  - name: asset_storage
+    description: Asset storage in GB; first 100 GB included on Free and Growth, then $0.50/GB on Growth.
+    unit: GB-month
+    aggregation: max
+    dimensions:
+      - dataset
+      - plan
+  - name: bandwidth
+    description: Outbound bandwidth in GB; first 100 GB/month included on Free and Growth, then $0.30/GB
+      on Growth.
     unit: GB
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - dataset
+      - plan
+  - name: documents
+    description: Document count cap by plan (10K Free / 25K Growth).
+    unit: document
+    aggregation: max
+    dimensions:
+      - dataset
+      - plan
+  - name: addons
+    description: Flat-rate Growth add-ons (SAML SSO $1,399/mo, Dedicated Support $799/mo, Increased Quota
+      $299/mo, Extra Dataset $999/dataset).
+    unit: month
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Sanity Query API
-    baseURL: ''
-    tags:
-      - GROQ
-      - Query
-      - Content Lake
-      - CDN
-    serviceName: Sanity Query API
-    serviceCategory: API
-  - name: Sanity Mutation API
-    baseURL: ''
-    tags:
-      - Mutation
-      - Documents
-      - CRUD
-      - Content Lake
-    serviceName: Sanity Mutation API
-    serviceCategory: API
-  - name: Sanity Assets API
-    baseURL: ''
-    tags:
-      - Assets
-      - Images
-      - Files
-      - Upload
-    serviceName: Sanity Assets API
-    serviceCategory: API
-  - name: Sanity Projects API
-    baseURL: ''
-    tags:
-      - Projects
-      - Datasets
-      - Access Control
-      - Tokens
-    serviceName: Sanity Projects API
-    serviceCategory: API
-  - name: Sanity Webhooks API
-    baseURL: ''
-    tags:
-      - Webhooks
-      - Events
-      - Notifications
-      - Real-Time
-    serviceName: Sanity Webhooks API
-    serviceCategory: API
-  - name: Sanity Listen API
-    baseURL: ''
-    tags:
-      - Real-Time
-      - SSE
-      - Events
-      - Streaming
-    serviceName: Sanity Listen API
-    serviceCategory: API
-  - name: Sanity Roles API
-    baseURL: ''
-    tags:
-      - Roles
-      - Permissions
-      - Access Control
-      - Security
-    serviceName: Sanity Roles API
-    serviceCategory: API
-  - name: Sanity Scheduling API
-    baseURL: ''
-    tags:
-      - Scheduling
-      - Publishing
-      - Content Calendar
-      - Workflow
-    serviceName: Sanity Scheduling API
-    serviceCategory: API
-  - name: Sanity Embeddings Index API
-    baseURL: ''
-    tags:
-      - Embeddings
-      - Vector Search
-      - AI
-      - Semantic Search
-    serviceName: Sanity Embeddings Index API
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - addon
+principles:
+  - name: Visibility
+    description: Use the Sanity project usage dashboard to see CDN requests, direct API requests, asset
+      storage, and bandwidth against included quotas; the same numbers determine overage charges on Growth.
+  - name: Allocation
+    description: Allocate cost by dataset (each Growth project includes 2 datasets, additional datasets
+      are $999/each) and by seat (each Growth seat is $15/month). Use dataset naming conventions to map
+      to teams or environments.
+  - name: Optimization
+    description: "Drive reads through the API CDN (`useCdn: true`) — cached responses are not rate limited and don't consume the direct-API quota. Right-size seat counts (Growth caps at 50 seats; move to Enterprise when sustained) and consolidate small datasets to avoid the per-dataset add-on."
+  - name: Accountability
+    description: A single billing owner per project receives Sanity invoices; map overage line items
+      (CDN requests, API requests, assets, bandwidth) back to the responsible team via dataset tags before
+      chargeback.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
