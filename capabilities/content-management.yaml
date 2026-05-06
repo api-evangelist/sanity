@@ -1,203 +1,409 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Sanity Content Management"
-  description: >-
-    Unified capability combining Sanity's Content API and Projects API for
-    full content lifecycle management. Used by developers, content engineers,
-    and editorial teams to query, create, update, and manage content in
-    Sanity Content Lake, as well as manage projects, datasets, and webhooks.
+  label: Sanity Content Management
+  description: Unified capability combining Sanity's Content API and Projects API for full content lifecycle management. Used
+    by developers, content engineers, and editorial teams to query, create, update, and manage content in Sanity Content Lake,
+    as well as manage projects, datasets, and webhooks.
   tags:
-    - Content Management
-    - Headless CMS
-    - GROQ
-    - Project Administration
-    - Sanity
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Content Management
+  - Headless CMS
+  - GROQ
+  - Project Administration
+  - Sanity
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SANITY_API_TOKEN: SANITY_API_TOKEN
-      SANITY_PROJECT_ID: SANITY_PROJECT_ID
-
+- namespace: env
+  keys:
+    SANITY_API_TOKEN: SANITY_API_TOKEN
+    SANITY_PROJECT_ID: SANITY_PROJECT_ID
 capability:
   consumes:
-    - import: sanity-content
-      location: ./shared/sanity-content.yaml
-    - import: sanity-projects
-      location: ./shared/sanity-projects.yaml
-
+  - type: http
+    namespace: sanity-content
+    baseUri: https://{{SANITY_PROJECT_ID}}.api.sanity.io/v2024-01-01
+    description: Sanity Content Lake API for querying and mutating structured content
+    authentication:
+      type: bearer
+      token: '{{SANITY_API_TOKEN}}'
+    resources:
+    - name: query
+      path: /data/query
+      description: GROQ query endpoint for reading content
+      operations:
+      - name: query-documents
+        method: GET
+        description: Query Content Lake documents using GROQ
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          required: true
+          description: Dataset name (e.g., production)
+        - name: query
+          in: query
+          type: string
+          required: true
+          description: GROQ query string
+        - name: perspective
+          in: query
+          type: string
+          required: false
+          description: Content perspective (drafts, published, raw)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: query-documents-post
+        method: POST
+        description: Query Content Lake via POST for large queries
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          required: true
+          description: Dataset name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            query: '{{tools.query}}'
+            params: '{{tools.params}}'
+    - name: mutations
+      path: /data/mutate
+      description: Document create, update, and delete operations
+      operations:
+      - name: mutate-documents
+        method: POST
+        description: Apply batch mutations to Content Lake documents
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          required: true
+          description: Dataset name
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            mutations: '{{tools.mutations}}'
+    - name: assets
+      path: /assets/images
+      description: Image asset upload and management
+      operations:
+      - name: upload-image-asset
+        method: POST
+        description: Upload an image asset to Content Lake
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  - type: http
+    namespace: sanity-projects
+    baseUri: https://api.sanity.io/v2024-01-01
+    description: Sanity management API for project, dataset, token, and webhook administration
+    authentication:
+      type: bearer
+      token: '{{SANITY_API_TOKEN}}'
+    resources:
+    - name: projects
+      path: /projects
+      description: Project lifecycle management
+      operations:
+      - name: list-projects
+        method: GET
+        description: List all projects accessible to the authenticated user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-project
+        method: POST
+        description: Create a new Sanity project
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            displayName: '{{tools.displayName}}'
+      - name: get-project
+        method: GET
+        description: Get details for a specific project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: datasets
+      path: /projects/{projectId}/datasets
+      description: Dataset management for a project
+      operations:
+      - name: list-datasets
+        method: GET
+        description: List all datasets in a project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: tokens
+      path: /projects/{projectId}/tokens
+      description: API token management
+      operations:
+      - name: list-tokens
+        method: GET
+        description: List API tokens for a project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-token
+        method: POST
+        description: Create a new API token for a project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            label: '{{tools.label}}'
+            roleName: '{{tools.roleName}}'
+    - name: webhooks
+      path: /hooks/projects/{projectId}
+      description: Webhook configuration management
+      operations:
+      - name: list-webhooks
+        method: GET
+        description: List webhooks for a project
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-webhook
+        method: POST
+        description: Create a webhook for event notifications
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+            url: '{{tools.url}}'
+            dataset: '{{tools.dataset}}'
+            true: '{{tools.on}}'
   exposes:
-    - type: rest
-      port: 8080
-      namespace: sanity-content-management-api
-      description: "Unified REST API for Sanity content and project management."
-      resources:
-        - path: /v1/content/query
-          name: content-query
-          description: "Query Content Lake documents using GROQ"
-          operations:
-            - method: POST
-              name: query-documents
-              description: "Execute a GROQ query against a dataset"
-              call: "sanity-content.query-documents-post"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/content/mutate
-          name: content-mutate
-          description: "Write operations on Content Lake documents"
-          operations:
-            - method: POST
-              name: mutate-documents
-              description: "Apply create, update, patch, or delete mutations"
-              call: "sanity-content.mutate-documents"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/projects
-          name: projects
-          description: "Sanity project management"
-          operations:
-            - method: GET
-              name: list-projects
-              description: "List all accessible Sanity projects"
-              call: "sanity-projects.list-projects"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/projects/{projectId}/datasets
-          name: datasets
-          description: "Dataset management for a project"
-          operations:
-            - method: GET
-              name: list-datasets
-              description: "List datasets in a project"
-              call: "sanity-projects.list-datasets"
-              with:
-                projectId: "rest.projectId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/projects/{projectId}/tokens
-          name: tokens
-          description: "API token management"
-          operations:
-            - method: GET
-              name: list-tokens
-              description: "List API tokens for a project"
-              call: "sanity-projects.list-tokens"
-              with:
-                projectId: "rest.projectId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/projects/{projectId}/webhooks
-          name: webhooks
-          description: "Webhook configuration for content events"
-          operations:
-            - method: GET
-              name: list-webhooks
-              description: "List webhooks for a project"
-              call: "sanity-projects.list-webhooks"
-              with:
-                projectId: "rest.projectId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-webhook
-              description: "Create a new webhook"
-              call: "sanity-projects.create-webhook"
-              with:
-                projectId: "rest.projectId"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: sanity-content-management-mcp
-      transport: http
-      description: "MCP server for AI-assisted Sanity content management and querying."
-      tools:
-        - name: query-content
-          description: "Query Sanity Content Lake documents using GROQ syntax"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "sanity-content.query-documents-post"
-          with:
-            query: "tools.query"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-document
-          description: "Create a new document in Sanity Content Lake"
-          hints:
-            readOnly: false
-            destructive: false
-          call: "sanity-content.mutate-documents"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: update-document
-          description: "Update an existing document in Sanity Content Lake"
-          hints:
-            readOnly: false
-            idempotent: false
-          call: "sanity-content.mutate-documents"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: delete-document
-          description: "Delete a document from Sanity Content Lake"
-          hints:
-            readOnly: false
-            destructive: true
-            idempotent: true
-          call: "sanity-content.mutate-documents"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-projects
-          description: "List all Sanity projects accessible with the current token"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "sanity-projects.list-projects"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-datasets
-          description: "List datasets in a Sanity project"
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "sanity-projects.list-datasets"
-          with:
-            projectId: "tools.projectId"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-webhook
-          description: "Configure a webhook to receive Sanity content change notifications"
-          hints:
-            readOnly: false
-          call: "sanity-projects.create-webhook"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: sanity-content-management-api
+    description: Unified REST API for Sanity content and project management.
+    resources:
+    - path: /v1/content/query
+      name: content-query
+      description: Query Content Lake documents using GROQ
+      operations:
+      - method: POST
+        name: query-documents
+        description: Execute a GROQ query against a dataset
+        call: sanity-content.query-documents-post
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/content/mutate
+      name: content-mutate
+      description: Write operations on Content Lake documents
+      operations:
+      - method: POST
+        name: mutate-documents
+        description: Apply create, update, patch, or delete mutations
+        call: sanity-content.mutate-documents
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects
+      name: projects
+      description: Sanity project management
+      operations:
+      - method: GET
+        name: list-projects
+        description: List all accessible Sanity projects
+        call: sanity-projects.list-projects
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectId}/datasets
+      name: datasets
+      description: Dataset management for a project
+      operations:
+      - method: GET
+        name: list-datasets
+        description: List datasets in a project
+        call: sanity-projects.list-datasets
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectId}/tokens
+      name: tokens
+      description: API token management
+      operations:
+      - method: GET
+        name: list-tokens
+        description: List API tokens for a project
+        call: sanity-projects.list-tokens
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{projectId}/webhooks
+      name: webhooks
+      description: Webhook configuration for content events
+      operations:
+      - method: GET
+        name: list-webhooks
+        description: List webhooks for a project
+        call: sanity-projects.list-webhooks
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-webhook
+        description: Create a new webhook
+        call: sanity-projects.create-webhook
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: sanity-content-management-mcp
+    transport: http
+    description: MCP server for AI-assisted Sanity content management and querying.
+    tools:
+    - name: query-content
+      description: Query Sanity Content Lake documents using GROQ syntax
+      hints:
+        readOnly: true
+        openWorld: false
+      call: sanity-content.query-documents-post
+      with:
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-document
+      description: Create a new document in Sanity Content Lake
+      hints:
+        readOnly: false
+        destructive: false
+      call: sanity-content.mutate-documents
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-document
+      description: Update an existing document in Sanity Content Lake
+      hints:
+        readOnly: false
+        idempotent: false
+      call: sanity-content.mutate-documents
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-document
+      description: Delete a document from Sanity Content Lake
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: sanity-content.mutate-documents
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-projects
+      description: List all Sanity projects accessible with the current token
+      hints:
+        readOnly: true
+        openWorld: false
+      call: sanity-projects.list-projects
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-datasets
+      description: List datasets in a Sanity project
+      hints:
+        readOnly: true
+        openWorld: false
+      call: sanity-projects.list-datasets
+      with:
+        projectId: tools.projectId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook
+      description: Configure a webhook to receive Sanity content change notifications
+      hints:
+        readOnly: false
+      call: sanity-projects.create-webhook
+      outputParameters:
+      - type: object
+        mapping: $.
