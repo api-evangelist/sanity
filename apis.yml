@@ -190,9 +190,9 @@ common:
     url: https://www.sanity.io/docs/http-reference
   - type: Developer Portal
     url: https://www.sanity.io/docs
-  - type: GitHub Organization
+  - type: GitHubOrganization
     url: https://github.com/sanity-io
-  - type: Getting Started
+  - type: GettingStarted
     url: https://www.sanity.io/docs/getting-started-with-sanity
   - type: JavaScript SDK
     url: https://www.npmjs.com/package/@sanity/client
@@ -202,7 +202,7 @@ common:
     url: https://slack.sanity.io
   - type: Blog
     url: https://www.sanity.io/blog
-  - type: Status
+  - type: StatusPage
     url: https://status.sanity.io
   - type: Vocabulary
     url: vocabulary/sanity-vocabulary.yml
