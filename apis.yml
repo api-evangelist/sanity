@@ -18,7 +18,7 @@ tags:
   - Structured Content
   - Developer Platform
 created: '2026-05-02'
-modified: '2026-05-02'
+modified: '2026-05-19'
 x-profiled: '2026-05'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/apis.yml
@@ -212,6 +212,12 @@ common:
     url: capabilities/content-management.yaml
   - type: JSONLD
     url: json-ld/sanity-context.jsonld
+  - name: MCP Server
+    url: https://github.com/sanity-io/sanity-mcp-server
+    type: MCPServer
+  - name: Agent Skills
+    url: https://www.sanity.io/blog/introducing-sanity-agent-skills
+    type: AgentSkill
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
