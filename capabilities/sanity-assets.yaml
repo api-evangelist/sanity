@@ -1,0 +1,98 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sanity HTTP API — Assets
+  description: 'Sanity HTTP API — Assets. 1 operations. Lead operation: Upload Image Asset. Self-contained Naftiko capability
+    covering one Sanity business surface.'
+  tags:
+  - Sanity
+  - Assets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SANITY_API_KEY: SANITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sanity-assets
+    baseUri: https://{projectId}.api.sanity.io/v{apiVersion}
+    description: Sanity HTTP API — Assets business capability. Self-contained, no shared references.
+    resources:
+    - name: assets-images-dataset
+      path: /assets/images/{dataset}
+      operations:
+      - name: uploadimageasset
+        method: POST
+        description: Upload Image Asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          required: true
+        - name: filename
+          in: query
+          type: string
+          description: Original filename for the asset
+        - name: label
+          in: query
+          type: string
+          description: Human-readable label for the asset
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SANITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sanity-assets-rest
+    port: 8080
+    description: REST adapter for Sanity HTTP API — Assets. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/assets/images/{dataset}
+      name: assets-images-dataset
+      description: REST surface for assets-images-dataset.
+      operations:
+      - method: POST
+        name: uploadimageasset
+        description: Upload Image Asset
+        call: sanity-assets.uploadimageasset
+        with:
+          dataset: rest.dataset
+          filename: rest.filename
+          label: rest.label
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sanity-assets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sanity HTTP API — Assets. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: upload-image-asset
+      description: Upload Image Asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sanity-assets.uploadimageasset
+      with:
+        dataset: tools.dataset
+        filename: tools.filename
+        label: tools.label
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

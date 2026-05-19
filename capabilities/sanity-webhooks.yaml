@@ -1,0 +1,120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sanity HTTP API — Webhooks
+  description: 'Sanity HTTP API — Webhooks. 2 operations. Lead operation: List Webhooks. Self-contained Naftiko capability
+    covering one Sanity business surface.'
+  tags:
+  - Sanity
+  - Webhooks
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SANITY_API_KEY: SANITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sanity-webhooks
+    baseUri: https://{projectId}.api.sanity.io/v{apiVersion}
+    description: Sanity HTTP API — Webhooks business capability. Self-contained, no shared references.
+    resources:
+    - name: hooks-projects-projectId
+      path: /hooks/projects/{projectId}
+      operations:
+      - name: listwebhooks
+        method: GET
+        description: List Webhooks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+      - name: createwebhook
+        method: POST
+        description: Create Webhook
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: projectId
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SANITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sanity-webhooks-rest
+    port: 8080
+    description: REST adapter for Sanity HTTP API — Webhooks. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/hooks/projects/{projectid}
+      name: hooks-projects-projectid
+      description: REST surface for hooks-projects-projectId.
+      operations:
+      - method: GET
+        name: listwebhooks
+        description: List Webhooks
+        call: sanity-webhooks.listwebhooks
+        with:
+          projectId: rest.projectId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createwebhook
+        description: Create Webhook
+        call: sanity-webhooks.createwebhook
+        with:
+          projectId: rest.projectId
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sanity-webhooks-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sanity HTTP API — Webhooks. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-webhooks
+      description: List Webhooks
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: sanity-webhooks.listwebhooks
+      with:
+        projectId: tools.projectId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-webhook
+      description: Create Webhook
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sanity-webhooks.createwebhook
+      with:
+        projectId: tools.projectId
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

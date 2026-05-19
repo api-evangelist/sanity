@@ -1,0 +1,105 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Sanity HTTP API — Mutations
+  description: 'Sanity HTTP API — Mutations. 1 operations. Lead operation: Mutate Documents. Self-contained Naftiko capability
+    covering one Sanity business surface.'
+  tags:
+  - Sanity
+  - Mutations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SANITY_API_KEY: SANITY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: sanity-mutations
+    baseUri: https://{projectId}.api.sanity.io/v{apiVersion}
+    description: Sanity HTTP API — Mutations business capability. Self-contained, no shared references.
+    resources:
+    - name: data-mutate-dataset
+      path: /data/mutate/{dataset}
+      operations:
+      - name: mutatedocuments
+        method: POST
+        description: Mutate Documents
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dataset
+          in: path
+          type: string
+          description: Dataset name
+          required: true
+        - name: returnIds
+          in: query
+          type: boolean
+          description: Return document IDs of created/modified documents
+        - name: returnDocuments
+          in: query
+          type: boolean
+          description: Return full documents after mutations
+        - name: visibility
+          in: query
+          type: string
+          description: Mutation visibility mode
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SANITY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: sanity-mutations-rest
+    port: 8080
+    description: REST adapter for Sanity HTTP API — Mutations. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/data/mutate/{dataset}
+      name: data-mutate-dataset
+      description: REST surface for data-mutate-dataset.
+      operations:
+      - method: POST
+        name: mutatedocuments
+        description: Mutate Documents
+        call: sanity-mutations.mutatedocuments
+        with:
+          dataset: rest.dataset
+          returnIds: rest.returnIds
+          returnDocuments: rest.returnDocuments
+          visibility: rest.visibility
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: sanity-mutations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Sanity HTTP API — Mutations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: mutate-documents
+      description: Mutate Documents
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: sanity-mutations.mutatedocuments
+      with:
+        dataset: tools.dataset
+        returnIds: tools.returnIds
+        returnDocuments: tools.returnDocuments
+        visibility: tools.visibility
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
