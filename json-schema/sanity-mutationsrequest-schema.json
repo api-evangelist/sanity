@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MutationsRequest",
+  "title": "MutationsRequest",
+  "type": "object",
+  "required": [
+    "mutations"
+  ],
+  "properties": {
+    "mutations": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

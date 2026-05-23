@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TokenWithKey",
+  "title": "TokenWithKey",
+  "allOf": [
+    {
+      "$ref": "#/components/schemas/Token"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "The API token key (only returned at creation)"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QueryResponse",
+  "title": "QueryResponse",
+  "type": "object",
+  "properties": {
+    "ms": {
+      "type": "integer",
+      "description": "Server-side processing time in milliseconds"
+    },
+    "query": {
+      "type": "string",
+      "description": "The submitted query"
+    },
+    "result": {
+      "description": "Query result (object, array, number, or null)"
+    },
+    "syncTags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

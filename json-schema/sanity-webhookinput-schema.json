@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/WebhookInput",
+  "title": "WebhookInput",
+  "type": "object",
+  "required": [
+    "name",
+    "url",
+    "dataset",
+    true
+  ],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "dataset": {
+      "type": "string"
+    },
+    "filter": {
+      "type": "string"
+    },
+    "projection": {
+      "type": "string"
+    },
+    "true": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "create",
+          "update",
+          "delete"
+        ]
+      }
+    },
+    "secret": {
+      "type": "string"
+    }
+  }
+}

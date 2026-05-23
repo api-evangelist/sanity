@@ -1,0 +1,214 @@
+{
+  "provider": "Sanity",
+  "providerId": "sanity",
+  "kind": "json-structure",
+  "description": "Structural overview of the Sanity API surface; extracted from openapi/.",
+  "schemaCount": 10,
+  "operationCount": 15,
+  "schemas": [
+    {
+      "name": "QueryResponse",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "MutationsRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "mutations"
+      ]
+    },
+    {
+      "name": "MutationResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "AssetDocument",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Project",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "Dataset",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Token",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "TokenWithKey",
+      "type": null,
+      "propertyCount": 0,
+      "required": []
+    },
+    {
+      "name": "Webhook",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "WebhookInput",
+      "type": "object",
+      "propertyCount": 7,
+      "required": [
+        "name",
+        "url",
+        "dataset",
+        true
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/data/query/{dataset}",
+      "operationId": "queryDocuments",
+      "summary": "Query Documents",
+      "tags": [
+        "Query"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/query/{dataset}",
+      "operationId": "queryDocumentsPost",
+      "summary": "Query Documents (POST)",
+      "tags": [
+        "Query"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/mutate/{dataset}",
+      "operationId": "mutateDocuments",
+      "summary": "Mutate Documents",
+      "tags": [
+        "Mutations"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/assets/images/{dataset}",
+      "operationId": "uploadImageAsset",
+      "summary": "Upload Image Asset",
+      "tags": [
+        "Assets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects",
+      "operationId": "listProjects",
+      "summary": "List Projects",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects",
+      "operationId": "createProject",
+      "summary": "Create Project",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{projectId}",
+      "operationId": "getProject",
+      "summary": "Get Project",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/projects/{projectId}",
+      "operationId": "updateProject",
+      "summary": "Update Project",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{projectId}/datasets",
+      "operationId": "listDatasets",
+      "summary": "List Datasets",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/projects/{projectId}/datasets",
+      "operationId": "createDataset",
+      "summary": "Create Dataset",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{projectId}/tokens",
+      "operationId": "listTokens",
+      "summary": "List Tokens",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{projectId}/tokens",
+      "operationId": "createToken",
+      "summary": "Create Token",
+      "tags": [
+        "Projects"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/hooks/projects/{projectId}",
+      "operationId": "listWebhooks",
+      "summary": "List Webhooks",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/hooks/projects/{projectId}",
+      "operationId": "createWebhook",
+      "summary": "Create Webhook",
+      "tags": [
+        "Webhooks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/data/listen/{dataset}",
+      "operationId": "listenForChanges",
+      "summary": "Listen for Changes",
+      "tags": [
+        "Listen"
+      ]
+    }
+  ]
+}

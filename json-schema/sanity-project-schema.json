@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Project",
+  "title": "Project",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique project ID"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "organizationId": {
+      "type": "string"
+    },
+    "isBlocked": {
+      "type": "boolean"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
