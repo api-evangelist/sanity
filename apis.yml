@@ -15,7 +15,7 @@ tags:
 - Structured Content
 - Developer Platform
 created: '2026-05-02'
-modified: '2026-05-19'
+modified: '2026-05-30'
 x-profiled: 2026-05
 url: https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/apis.yml
 specificationVersion: '0.19'
@@ -105,6 +105,10 @@ apis:
   properties:
   - type: Documentation
     url: https://www.sanity.io/docs/http-reference
+  - type: Documentation
+    url: https://www.sanity.io/docs/webhooks
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/asyncapi/sanity-webhooks-asyncapi.yml
 - aid: sanity:sanity-listen-api
   name: Sanity Listen API
   description: The Sanity Listen API provides real-time event streaming via Server-Sent Events (SSE) for content changes in

@@ -2,12 +2,17 @@
   "repo": "sanity",
   "feeds": [
     {
-      "source": "https://www.sanity.io/blog",
+      "source": "https://www.sanity.io/feed/rss",
       "feed_url": "https://www.sanity.io/feed/rss",
-      "title": "Sanity.io",
-      "saved": 45
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
+      "source": "https://slack.sanity.io",
+      "error": "HTTPError"
     }
   ],
-  "post_count": 55,
-  "fetched": "2026-05-17T20:48:52Z"
+  "post_count": 56,
+  "fetched": "2026-06-01T23:35:02Z"
 }

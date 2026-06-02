@@ -1,0 +1,250 @@
+asyncapi: 2.6.0
+info:
+  title: Sanity GROQ-Powered Webhooks
+  version: 1.0.0
+  description: |
+    AsyncAPI specification for Sanity's GROQ-powered webhook surface. Sanity
+    delivers event-driven HTTP callbacks when documents in a Content Lake
+    dataset are created, updated, or deleted. Subscribers configure a webhook
+    with a GROQ filter (selecting which documents trigger delivery) and an
+    optional GROQ projection (shaping the request body). Sanity then POSTs (or
+    PUTs/PATCHes/DELETEs/GETs, per webhook configuration) the resulting payload
+    to the subscriber's URL, along with a set of standard and Sanity-specific
+    headers identifying the originating transaction, dataset, document, and
+    operation. By default webhooks ignore draft and version documents.
+  contact:
+    name: API Evangelist
+    url: https://www.sanity.io/docs/webhooks
+  license:
+    name: Sanity Terms of Service
+    url: https://www.sanity.io/legal/terms-of-service
+  tags:
+    - name: Webhooks
+    - name: GROQ
+    - name: Content Lake
+    - name: Events
+defaultContentType: application/json
+servers:
+  subscriber:
+    url: '{webhookUrl}'
+    protocol: https
+    description: |
+      Subscriber-controlled HTTPS endpoint that Sanity delivers webhook
+      requests to. The URL is configured per webhook on the Sanity project.
+    variables:
+      webhookUrl:
+        description: Fully qualified subscriber URL receiving Sanity webhook deliveries.
+        default: https://example.com/sanity-webhook
+channels:
+  document/create:
+    description: |
+      Delivered when a document matching the webhook's GROQ filter is created
+      in the configured dataset. The sanity-operation header is set to "create".
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: 0.3.0
+    subscribe:
+      operationId: onDocumentCreate
+      summary: Document created event delivery.
+      description: |
+        Sanity POSTs the projected document payload to the subscriber URL when
+        a new document matching the webhook filter is created.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: 0.3.0
+      message:
+        $ref: '#/components/messages/DocumentCreated'
+  document/update:
+    description: |
+      Delivered when a document matching the webhook's GROQ filter is changed.
+      The sanity-operation header is set to "update". delta::changedAny and
+      before()/after() may be used in the projection to inspect the change.
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: 0.3.0
+    subscribe:
+      operationId: onDocumentUpdate
+      summary: Document updated event delivery.
+      description: |
+        Sanity delivers the projected payload whenever a matching document is
+        modified after creation.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: 0.3.0
+      message:
+        $ref: '#/components/messages/DocumentUpdated'
+  document/delete:
+    description: |
+      Delivered when a document matching the webhook's GROQ filter is deleted.
+      The sanity-operation header is set to "delete".
+    bindings:
+      http:
+        type: request
+        method: POST
+        bindingVersion: 0.3.0
+    subscribe:
+      operationId: onDocumentDelete
+      summary: Document deleted event delivery.
+      description: |
+        Sanity delivers a payload describing the deleted document. before()
+        may be used in the projection to reference the prior state.
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: 0.3.0
+      message:
+        $ref: '#/components/messages/DocumentDeleted'
+components:
+  messages:
+    DocumentCreated:
+      name: DocumentCreated
+      title: Document Created
+      summary: A document matching the webhook filter was created.
+      contentType: application/json
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+      bindings:
+        http:
+          headers:
+            type: object
+            properties:
+              sanity-operation:
+                type: string
+                const: create
+          bindingVersion: 0.3.0
+      examples:
+        - name: CreateExample
+          summary: Headers identifying a create event.
+          headers:
+            content-type: application/json
+            sanity-operation: create
+            sanity-dataset: production
+            sanity-project-id: abcd1234
+            sanity-document-id: 0f1e2d3c-4b5a-6978-8a9b-0c1d2e3f4a5b
+            sanity-transaction-id: txn-abc
+            sanity-webhook-id: hook-123
+            idempotency-key: 0f1e2d3c-4b5a-6978-8a9b-0c1d2e3f4a5b#txn-abc
+    DocumentUpdated:
+      name: DocumentUpdated
+      title: Document Updated
+      summary: A document matching the webhook filter was changed.
+      contentType: application/json
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+      bindings:
+        http:
+          headers:
+            type: object
+            properties:
+              sanity-operation:
+                type: string
+                const: update
+          bindingVersion: 0.3.0
+    DocumentDeleted:
+      name: DocumentDeleted
+      title: Document Deleted
+      summary: A document matching the webhook filter was deleted.
+      contentType: application/json
+      headers:
+        $ref: '#/components/schemas/WebhookHeaders'
+      payload:
+        $ref: '#/components/schemas/WebhookPayload'
+      bindings:
+        http:
+          headers:
+            type: object
+            properties:
+              sanity-operation:
+                type: string
+                const: delete
+          bindingVersion: 0.3.0
+  schemas:
+    WebhookHeaders:
+      type: object
+      description: |
+        Headers Sanity attaches to every webhook delivery. Standard HTTP
+        headers (content-type, content-length, user-agent, host, connection,
+        accept-encoding) are sent in addition to the Sanity-specific headers
+        documented here. When a webhook secret is configured, a signature is
+        included for verification with the Sanity webhook toolkit.
+      properties:
+        content-type:
+          type: string
+          const: application/json
+          description: Always application/json for Sanity-delivered payloads.
+        idempotency-key:
+          type: string
+          description: Unique identifier suitable for subscriber-side de-duplication.
+        sanity-operation:
+          type: string
+          enum:
+            - create
+            - update
+            - delete
+          description: The document operation that triggered this delivery.
+        sanity-project-id:
+          type: string
+          description: Sanity project identifier that owns the originating dataset.
+        sanity-dataset:
+          type: string
+          description: Dataset name within the project (for example "production").
+        sanity-document-id:
+          type: string
+          description: Identifier of the document whose change triggered the webhook.
+        sanity-transaction-id:
+          type: string
+          description: Sanity transaction identifier for the change.
+        sanity-transaction-time:
+          type: string
+          format: date-time
+          description: Timestamp of the transaction that triggered the delivery.
+        sanity-webhook-id:
+          type: string
+          description: Identifier of the webhook configuration that produced the delivery.
+      required:
+        - content-type
+        - sanity-operation
+        - sanity-project-id
+        - sanity-dataset
+        - sanity-document-id
+        - sanity-transaction-id
+        - sanity-webhook-id
+        - idempotency-key
+    WebhookPayload:
+      type: object
+      description: |
+        Request body delivered to the subscriber. By default the payload is the
+        full document after the change; when a GROQ projection is configured on
+        the webhook, the payload is whatever shape the projection produces.
+        Sanity's delta:: namespace and before()/after() functions may be used
+        in projections to reference the previous and current document state.
+      additionalProperties: true
+      properties:
+        _id:
+          type: string
+          description: Document identifier (when included by the projection).
+        _type:
+          type: string
+          description: Document type (when included by the projection).
+        _rev:
+          type: string
+          description: Document revision identifier (when included by the projection).
+        _createdAt:
+          type: string
+          format: date-time
+        _updatedAt:
+          type: string
+          format: date-time
