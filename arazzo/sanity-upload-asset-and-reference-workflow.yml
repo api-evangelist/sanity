@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Upload Asset and Reference
+  summary: Upload an image asset, then create a document that references it.
+  description: >-
+    The asset ingestion pattern for the Content Lake. The workflow uploads
+    binary image data to the assets endpoint, captures the resulting asset
+    document id and url, and then applies a create mutation that builds a new
+    document holding an image field whose asset reference points at the freshly
+    uploaded asset. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upload-asset-and-reference
+  summary: Upload an image asset and wire it into a new document via a reference.
+  description: >-
+    Uploads an image to the dataset, reads back the asset document id, and
+    creates a document that references the asset through a standard Sanity
+    image field.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - imageBinary
+    - documentId
+    - documentType
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to upload into and write into.
+      imageBinary:
+        type: string
+        description: Raw binary image content to upload (JPEG, PNG, WebP, GIF, or SVG).
+      filename:
+        type: string
+        description: Optional original filename to record on the asset.
+      documentId:
+        type: string
+        description: The _id to assign to the new referencing document.
+      documentType:
+        type: string
+        description: The _type of the new document that will hold the image.
+  steps:
+  - stepId: uploadAsset
+    description: >-
+      Upload the binary image to the Content Lake and capture the asset
+      document id and public url.
+    operationId: uploadImageAsset
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: filename
+      in: query
+      value: $inputs.filename
+    requestBody:
+      contentType: image/*
+      payload: $inputs.imageBinary
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assetId: $response.body#/document/_id
+      assetUrl: $response.body#/document/url
+  - stepId: referenceAsset
+    description: >-
+      Create a document with an image field whose asset reference points at the
+      uploaded asset id.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - create:
+            _id: $inputs.documentId
+            _type: $inputs.documentType
+            image:
+              _type: image
+              asset:
+                _type: reference
+                _ref: $steps.uploadAsset.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      documentId: $response.body#/results/0/id
+  outputs:
+    assetId: $steps.uploadAsset.outputs.assetId
+    assetUrl: $steps.uploadAsset.outputs.assetUrl
+    documentId: $steps.referenceAsset.outputs.documentId

@@ -162,6 +162,51 @@ apis:
   - type: Documentation
     url: https://www.sanity.io/docs/http-reference
 common:
+- type: ArazzoWorkflows
+  url: arazzo/
+  workflows:
+  - url: arazzo/sanity-bootstrap-project-workflow.yml
+    name: Sanity Bootstrap Project
+    summary: Create a project, add an initial dataset, then list the project datasets.
+  - url: arazzo/sanity-bulk-delete-by-query-workflow.yml
+    name: Sanity Bulk Delete by Query
+    summary: Count documents matching a GROQ filter, then delete them in one mutation.
+  - url: arazzo/sanity-compare-draft-and-published-workflow.yml
+    name: Sanity Compare Draft and Published
+    summary: Read a document's draft and published perspectives to inspect its history.
+  - url: arazzo/sanity-create-and-verify-document-workflow.yml
+    name: Sanity Create and Verify Document
+    summary: Create a document with a mutation, then confirm it exists with a GROQ query.
+  - url: arazzo/sanity-discover-project-datasets-workflow.yml
+    name: Sanity Discover Project Datasets
+    summary: List accessible projects, then enumerate the datasets of a chosen project.
+  - url: arazzo/sanity-issue-token-for-project-workflow.yml
+    name: Sanity Issue Token for Project
+    summary: Confirm a project exists, mint an API token on it, then list its tokens.
+  - url: arazzo/sanity-provision-dataset-workflow.yml
+    name: Sanity Provision Dataset
+    summary: Create a dataset in a project, then list datasets to confirm it exists.
+  - url: arazzo/sanity-publish-draft-document-workflow.yml
+    name: Sanity Publish Draft Document
+    summary: Read a draft, promote it to a published document, then verify the result.
+  - url: arazzo/sanity-query-then-patch-document-workflow.yml
+    name: Sanity Query Then Patch Document
+    summary: Find a document with GROQ, then patch it when a match is found.
+  - url: arazzo/sanity-register-webhook-for-query-workflow.yml
+    name: Sanity Register Webhook for Query
+    summary: Validate a GROQ filter, register a webhook on it, then list webhooks.
+  - url: arazzo/sanity-rename-project-workflow.yml
+    name: Sanity Rename Project
+    summary: Read a project, update its display name and metadata, then re-read it.
+  - url: arazzo/sanity-replace-document-asset-workflow.yml
+    name: Sanity Replace Document Asset
+    summary: Upload a new image, find the target document, then point it at the new asset.
+  - url: arazzo/sanity-upload-asset-and-reference-workflow.yml
+    name: Sanity Upload Asset and Reference
+    summary: Upload an image asset, then create a document that references it.
+  - url: arazzo/sanity-upsert-document-workflow.yml
+    name: Sanity Upsert Document
+    summary: Find a document by a GROQ key match and patch it, otherwise create it.
 - type: LinkedIn
   url: https://www.linkedin.com/company/sanity-io
 - type: Website

@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Replace Document Asset
+  summary: Upload a new image, find the target document, then point it at the new asset.
+  description: >-
+    An asset-swap flow for the Content Lake. The workflow uploads a replacement
+    image, reads the target document to confirm it exists, and then patches that
+    document's image field so its asset reference points at the newly uploaded
+    asset. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: replace-document-asset
+  summary: Swap a document's image to a newly uploaded asset reference.
+  description: >-
+    Uploads a replacement image, confirms the target document exists, and
+    patches its image field to reference the new asset.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - documentId
+    - imageBinary
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name holding the document and receiving the asset.
+      documentId:
+        type: string
+        description: The _id of the document whose image asset is being replaced.
+      imageBinary:
+        type: string
+        description: Raw binary image content for the replacement asset.
+      filename:
+        type: string
+        description: Optional original filename to record on the asset.
+  steps:
+  - stepId: uploadReplacement
+    description: Upload the replacement image and capture its asset document id.
+    operationId: uploadImageAsset
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: filename
+      in: query
+      value: $inputs.filename
+    requestBody:
+      contentType: image/*
+      payload: $inputs.imageBinary
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      assetId: $response.body#/document/_id
+      assetUrl: $response.body#/document/url
+  - stepId: findDocument
+    description: Read the target document by id to confirm it exists before patching.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[_id == $id][0]{_id}"
+        params:
+          id: $inputs.documentId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      foundId: $response.body#/result/_id
+  - stepId: patchAsset
+    description: >-
+      Patch the document's image field so its asset reference points at the
+      newly uploaded asset.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - patch:
+            id: $inputs.documentId
+            set:
+              image:
+                _type: image
+                asset:
+                  _type: reference
+                  _ref: $steps.uploadReplacement.outputs.assetId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      documentId: $response.body#/results/0/id
+  outputs:
+    assetId: $steps.uploadReplacement.outputs.assetId
+    assetUrl: $steps.uploadReplacement.outputs.assetUrl
+    documentId: $steps.patchAsset.outputs.documentId

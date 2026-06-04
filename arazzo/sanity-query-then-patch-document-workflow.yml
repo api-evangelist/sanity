@@ -1,0 +1,116 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Query Then Patch Document
+  summary: Find a document with GROQ, then patch it when a match is found.
+  description: >-
+    A read-modify-write flow against the Content Lake. The workflow runs a
+    GROQ query to locate a single document matching a supplied filter, then
+    branches: when a document is found it applies a patch mutation that sets
+    the supplied fields on that document, and when nothing matches it ends
+    without writing. Every step spells out its request inline so the flow can
+    be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: query-then-patch-document
+  summary: Locate a document by a GROQ filter and patch it if it exists.
+  description: >-
+    Issues a GROQ query that returns the first document matching the filter,
+    then conditionally applies a set patch to that document's id when a match
+    is present.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - filter
+    - set
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to query and mutate.
+      filter:
+        type: string
+        description: >-
+          A GROQ filter expression selecting the target document
+          (e.g. _type == "post" && slug.current == "hello").
+      set:
+        type: object
+        description: Map of field name/value pairs to set on the matched document.
+  steps:
+  - stepId: findDocument
+    description: >-
+      Run a GROQ query that returns the id of the first document matching the
+      supplied filter expression.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[$filter][0]{_id}"
+        params:
+          filter: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedId: $response.body#/result/_id
+    onSuccess:
+    - name: documentFound
+      type: goto
+      stepId: patchDocument
+      criteria:
+      - context: $response.body
+        condition: $.result != null
+        type: jsonpath
+    - name: documentMissing
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.result == null
+        type: jsonpath
+  - stepId: patchDocument
+    description: >-
+      Apply a patch mutation that sets the supplied fields on the matched
+      document id.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - patch:
+            id: $steps.findDocument.outputs.matchedId
+            set: $inputs.set
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      patchedId: $response.body#/results/0/id
+  outputs:
+    matchedId: $steps.findDocument.outputs.matchedId
+    patchedId: $steps.patchDocument.outputs.patchedId

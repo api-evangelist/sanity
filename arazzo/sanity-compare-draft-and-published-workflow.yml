@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Compare Draft and Published
+  summary: Read a document's draft and published perspectives to inspect its history.
+  description: >-
+    An adapted document-history flow. The Sanity HTTP API in this description
+    exposes no dedicated revision-history endpoint, so this workflow approximates
+    history by reading the same document through two documented query
+    perspectives: it first fetches the published version of a document, then
+    fetches the drafts version, giving the caller both states to diff and see
+    what unpublished edits are pending. Every step spells out its request inline
+    so the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: compare-draft-and-published
+  summary: Fetch published and draft perspectives of one document for comparison.
+  description: >-
+    Queries a document by id under the published perspective, then under the
+    drafts perspective, so the caller can compare the two states. Used as a
+    stand-in for revision history, which this API description does not expose
+    directly.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - documentId
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to query.
+      documentId:
+        type: string
+        description: The published document _id to compare across perspectives.
+  steps:
+  - stepId: getPublished
+    description: >-
+      Fetch the document under the published perspective to capture its
+      live state.
+    operationId: queryDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: query
+      in: query
+      value: "*[_id == '$inputs.documentId'][0]"
+    - name: perspective
+      in: query
+      value: published
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishedDocument: $response.body#/result
+  - stepId: getDraft
+    description: >-
+      Fetch the document under the drafts perspective to capture any pending
+      unpublished edits for comparison against the published state.
+    operationId: queryDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: query
+      in: query
+      value: "*[_id == 'drafts.$inputs.documentId'][0]"
+    - name: perspective
+      in: query
+      value: drafts
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      draftDocument: $response.body#/result
+  outputs:
+    publishedDocument: $steps.getPublished.outputs.publishedDocument
+    draftDocument: $steps.getDraft.outputs.draftDocument

@@ -1,0 +1,155 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Upsert Document
+  summary: Find a document by a GROQ key match and patch it, otherwise create it.
+  description: >-
+    The Content Lake equivalent of an upsert. The workflow searches the dataset
+    for an existing document whose key field equals the supplied value, then
+    branches: when a match is found it patches that document with the supplied
+    fields, and when no match is found it creates a new document carrying both
+    the key and the fields. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: upsert-document
+  summary: Upsert a document keyed on a GROQ field match within a dataset.
+  description: >-
+    Looks for an existing document where the key field matches the supplied
+    value and either patches the matched document or creates a new one carrying
+    the key and fields.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - documentType
+    - keyField
+    - keyValue
+    - fields
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to upsert the document into.
+      documentType:
+        type: string
+        description: The _type of the document being upserted.
+      keyField:
+        type: string
+        description: Field name used to detect an existing document (e.g. slug).
+      keyValue:
+        type: string
+        description: Value of the key field to match on.
+      fields:
+        type: object
+        description: Map of field name/value pairs to write onto the document.
+  steps:
+  - stepId: findDocument
+    description: >-
+      Search the dataset for a document of the given type whose key field
+      equals the supplied value, returning the first match's id.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[_type == $type && @[$key] == $value][0]{_id}"
+        params:
+          type: $inputs.documentType
+          key: $inputs.keyField
+          value: $inputs.keyValue
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchedId: $response.body#/result/_id
+    onSuccess:
+    - name: documentExists
+      type: goto
+      stepId: patchExisting
+      criteria:
+      - context: $response.body
+        condition: $.result != null
+        type: jsonpath
+    - name: documentMissing
+      type: goto
+      stepId: createNew
+      criteria:
+      - context: $response.body
+        condition: $.result == null
+        type: jsonpath
+  - stepId: patchExisting
+    description: >-
+      Patch the matched document with the supplied fields, leaving other fields
+      untouched.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - patch:
+            id: $steps.findDocument.outputs.matchedId
+            set: $inputs.fields
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      documentId: $response.body#/results/0/id
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: createNew
+    description: >-
+      Create a new document of the given type carrying the key value and the
+      supplied fields when no existing document matched.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - create:
+            _type: $inputs.documentType
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      documentId: $response.body#/results/0/id
+  outputs:
+    matchedId: $steps.findDocument.outputs.matchedId
+    patchedDocumentId: $steps.patchExisting.outputs.documentId
+    createdDocumentId: $steps.createNew.outputs.documentId

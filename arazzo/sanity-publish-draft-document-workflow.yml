@@ -1,0 +1,126 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Publish Draft Document
+  summary: Read a draft, promote it to a published document, then verify the result.
+  description: >-
+    The draft-to-published promotion pattern in the Content Lake. The workflow
+    reads a draft document by its drafts-prefixed id, then applies a mutation
+    batch that creates or replaces the published document from that draft and
+    deletes the draft, and finally queries the published id to confirm the
+    promotion succeeded. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-draft-document
+  summary: Promote a draft document to published and confirm it landed.
+  description: >-
+    Fetches the draft by its drafts-prefixed id, runs a mutation batch that
+    creates or replaces the published document and deletes the draft, and
+    verifies the published document with a follow-up query.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - publishedId
+    - publishedDocument
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name holding the draft and published documents.
+      publishedId:
+        type: string
+        description: The published _id (the draft is drafts.<publishedId>).
+      publishedDocument:
+        type: object
+        description: >-
+          The document body to publish, including _type. Its _id is set by the
+          workflow from publishedId.
+  steps:
+  - stepId: readDraft
+    description: >-
+      Read the draft document by its drafts-prefixed id to confirm a draft
+      exists before promoting it.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[_id == $draftId][0]"
+        params:
+          draftId: "drafts.$inputs.publishedId"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      draftDocument: $response.body#/result
+  - stepId: promoteDraft
+    description: >-
+      Create or replace the published document from the supplied body and delete
+      the draft in a single mutation batch.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - createOrReplace:
+            _id: $inputs.publishedId
+            _type: $inputs.publishedDocument._type
+        - delete:
+            id: "drafts.$inputs.publishedId"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+  - stepId: verifyPublished
+    description: >-
+      Query the published id to confirm the document is now present in the
+      published perspective.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[_id == $id][0]"
+        params:
+          id: $inputs.publishedId
+        perspective: published
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishedDocument: $response.body#/result
+  outputs:
+    transactionId: $steps.promoteDraft.outputs.transactionId
+    publishedDocument: $steps.verifyPublished.outputs.publishedDocument

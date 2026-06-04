@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Discover Project Datasets
+  summary: List accessible projects, then enumerate the datasets of a chosen project.
+  description: >-
+    A discovery flow for a Sanity account. The workflow lists every project the
+    authenticated token can reach, then branches: when at least one project is
+    returned it fetches that project's details and enumerates its datasets, and
+    when no projects are returned it ends. Every step spells out its request
+    inline so the flow can be read and executed without opening the underlying
+    OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: discover-project-datasets
+  summary: Enumerate projects and drill into one project's details and datasets.
+  description: >-
+    Lists accessible projects, and when at least one exists, reads the first
+    project's details and lists its datasets.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    properties:
+      apiToken:
+        type: string
+        description: Sanity management API token used as a Bearer credential.
+  steps:
+  - stepId: listProjects
+    description: >-
+      List every project the token can access and capture the id of the first
+      project for drill-down.
+    operationId: listProjects
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projects: $response.body
+      firstProjectId: $response.body#/0/id
+    onSuccess:
+    - name: hasProjects
+      type: goto
+      stepId: getProject
+      criteria:
+      - context: $response.body
+        condition: $.length > 0
+        type: jsonpath
+    - name: noProjects
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.length == 0
+        type: jsonpath
+  - stepId: getProject
+    description: Read the details of the first accessible project.
+    operationId: getProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $steps.listProjects.outputs.firstProjectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/displayName
+  - stepId: listDatasets
+    description: List the datasets that belong to the chosen project.
+    operationId: listDatasets
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $steps.listProjects.outputs.firstProjectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasets: $response.body
+  outputs:
+    projects: $steps.listProjects.outputs.projects
+    displayName: $steps.getProject.outputs.displayName
+    datasets: $steps.listDatasets.outputs.datasets

@@ -1,0 +1,122 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Register Webhook for Query
+  summary: Validate a GROQ filter, register a webhook on it, then list webhooks.
+  description: >-
+    The change-notification setup pattern. The workflow first runs the intended
+    GROQ filter as a query to confirm it is valid and resolves against the
+    dataset, then registers a webhook that fires on the requested document
+    events for that same filter, and finally lists the project's webhooks to
+    confirm the registration. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-webhook-for-query
+  summary: Confirm a GROQ filter resolves, then register and verify a webhook on it.
+  description: >-
+    Runs the GROQ filter as a query to validate it, creates a webhook bound to
+    that filter and the requested event types, and lists the project's webhooks
+    to confirm the new webhook is present.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - filter
+    - webhookName
+    - webhookUrl
+    - on
+    properties:
+      projectId:
+        type: string
+        description: The project id the webhook is registered against.
+      apiToken:
+        type: string
+        description: Sanity API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset the webhook and validation query target.
+      filter:
+        type: string
+        description: GROQ filter expression selecting documents to notify on.
+      webhookName:
+        type: string
+        description: Human-readable name for the webhook.
+      webhookUrl:
+        type: string
+        description: Destination URL the webhook posts events to.
+      on:
+        type: array
+        description: Document events to fire on (create, update, delete).
+        items:
+          type: string
+  steps:
+  - stepId: validateFilter
+    description: >-
+      Run the GROQ filter as a query so an invalid filter is caught before a
+      webhook is registered against it.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[$filter][0...1]"
+        params:
+          filter: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sample: $response.body#/result
+  - stepId: createWebhook
+    description: >-
+      Register a webhook bound to the validated GROQ filter and the requested
+      document event types.
+    operationId: createWebhook
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        name: $inputs.webhookName
+        url: $inputs.webhookUrl
+        dataset: $inputs.dataset
+        filter: $inputs.filter
+        on: $inputs.on
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      webhookId: $response.body#/id
+  - stepId: listWebhooks
+    description: List the project's webhooks to confirm the new webhook is present.
+    operationId: listWebhooks
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      webhooks: $response.body
+  outputs:
+    webhookId: $steps.createWebhook.outputs.webhookId
+    webhooks: $steps.listWebhooks.outputs.webhooks

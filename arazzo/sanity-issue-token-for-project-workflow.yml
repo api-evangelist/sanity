@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Issue Token for Project
+  summary: Confirm a project exists, mint an API token on it, then list its tokens.
+  description: >-
+    The credential provisioning pattern for a Sanity project. The workflow
+    first fetches the project to confirm it exists and the caller can reach it,
+    then mints a new API token with the requested role, capturing the one-time
+    token key, and finally lists the project's tokens to confirm the new token
+    is registered. Every step spells out its request inline so the flow can be
+    read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: issue-token-for-project
+  summary: Verify a project, create an API token on it, and list the tokens.
+  description: >-
+    Reads the project to confirm access, creates a token with the supplied
+    label and role, captures the one-time key, and lists the project's tokens
+    to confirm registration.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - projectId
+    - label
+    - roleName
+    properties:
+      apiToken:
+        type: string
+        description: Sanity management API token used as a Bearer credential.
+      projectId:
+        type: string
+        description: The project id to mint the new token within.
+      label:
+        type: string
+        description: Human-readable label for the new token.
+      roleName:
+        type: string
+        description: Role to assign to the new token.
+  steps:
+  - stepId: getProject
+    description: Fetch the project to confirm it exists and is reachable.
+    operationId: getProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      displayName: $response.body#/displayName
+  - stepId: createToken
+    description: >-
+      Mint a new API token with the requested role and capture the one-time
+      token key returned only at creation.
+    operationId: createToken
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        label: $inputs.label
+        roleName: $inputs.roleName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tokenId: $response.body#/id
+      tokenKey: $response.body#/key
+  - stepId: listTokens
+    description: List the project's tokens to confirm the new token is registered.
+    operationId: listTokens
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tokens: $response.body
+  outputs:
+    tokenId: $steps.createToken.outputs.tokenId
+    tokenKey: $steps.createToken.outputs.tokenKey
+    tokens: $steps.listTokens.outputs.tokens

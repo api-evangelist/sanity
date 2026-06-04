@@ -1,0 +1,104 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Create and Verify Document
+  summary: Create a document with a mutation, then confirm it exists with a GROQ query.
+  description: >-
+    The foundational Sanity write-then-read pattern. The workflow submits a
+    create mutation to the Content Lake for a new document, captures the
+    transaction id and the resulting document id, and then runs a GROQ query
+    fetching the document by its id to confirm the write landed and to read
+    back the persisted fields. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: create-and-verify-document
+  summary: Create a single document and verify it via a GROQ lookup by id.
+  description: >-
+    Applies a create mutation to the dataset, then issues a GROQ query that
+    selects the freshly created document by its id so the caller can confirm
+    persistence and read the stored values.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - documentId
+    - document
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to write into (e.g. production).
+      documentId:
+        type: string
+        description: The _id to assign to the new document.
+      document:
+        type: object
+        description: >-
+          The full document body including _type. The _id is set by the
+          workflow from documentId.
+  steps:
+  - stepId: createDocument
+    description: >-
+      Apply a single create mutation that inserts the supplied document into
+      the dataset and returns the created document id.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - create:
+            _id: $inputs.documentId
+            _type: $inputs.document._type
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      createdId: $response.body#/results/0/id
+  - stepId: verifyDocument
+    description: >-
+      Run a GROQ query that fetches the document by its id to confirm the
+      mutation persisted and to read back the stored document.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "*[_id == $id][0]"
+        params:
+          id: $steps.createDocument.outputs.createdId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      verifiedDocument: $response.body#/result
+  outputs:
+    transactionId: $steps.createDocument.outputs.transactionId
+    createdId: $steps.createDocument.outputs.createdId
+    verifiedDocument: $steps.verifyDocument.outputs.verifiedDocument

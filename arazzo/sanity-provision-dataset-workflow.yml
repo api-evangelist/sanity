@@ -1,0 +1,83 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Provision Dataset
+  summary: Create a dataset in a project, then list datasets to confirm it exists.
+  description: >-
+    The dataset bootstrap pattern for a Sanity project. The workflow creates a
+    new dataset with the requested access mode, then lists every dataset in the
+    project so the caller can confirm the new dataset is present and inspect its
+    acl mode. Every step spells out its request inline so the flow can be read
+    and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-dataset
+  summary: Create a dataset and verify it through the project dataset list.
+  description: >-
+    Creates a dataset in the target project with the supplied name and acl
+    mode, then reads the full dataset list back to confirm the provisioning.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - projectId
+    - datasetName
+    properties:
+      apiToken:
+        type: string
+        description: Sanity management API token used as a Bearer credential.
+      projectId:
+        type: string
+        description: The project id the dataset is created within.
+      datasetName:
+        type: string
+        description: Name for the new dataset (e.g. staging).
+      aclMode:
+        type: string
+        description: Access control mode for the dataset (public or private).
+  steps:
+  - stepId: createDataset
+    description: >-
+      Create the dataset in the project with the requested name and access
+      control mode.
+    operationId: createDataset
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        datasetName: $inputs.datasetName
+        aclMode: $inputs.aclMode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      createdName: $response.body#/name
+      createdAclMode: $response.body#/aclMode
+  - stepId: listDatasets
+    description: >-
+      List all datasets in the project to confirm the newly created dataset is
+      present.
+    operationId: listDatasets
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasets: $response.body
+  outputs:
+    createdName: $steps.createDataset.outputs.createdName
+    createdAclMode: $steps.createDataset.outputs.createdAclMode
+    datasets: $steps.listDatasets.outputs.datasets

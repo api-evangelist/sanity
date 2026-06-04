@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Bulk Delete by Query
+  summary: Count documents matching a GROQ filter, then delete them in one mutation.
+  description: >-
+    A bulk cleanup flow for the Content Lake. The workflow first counts how many
+    documents match a GROQ filter so the caller can see the blast radius, then
+    branches: when at least one document matches it issues a delete mutation that
+    targets every document selected by that same GROQ query, and when nothing
+    matches it ends without writing. Every step spells out its request inline so
+    the flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bulk-delete-by-query
+  summary: Delete all documents matching a GROQ filter after counting them.
+  description: >-
+    Counts documents matching the filter, and when the count is positive,
+    deletes every matching document with a query-based delete mutation.
+  inputs:
+    type: object
+    required:
+    - projectId
+    - apiToken
+    - dataset
+    - filter
+    properties:
+      projectId:
+        type: string
+        description: The Sanity project id that scopes the API endpoint.
+      apiToken:
+        type: string
+        description: Sanity project API token used as a Bearer credential.
+      dataset:
+        type: string
+        description: Dataset name to delete documents from.
+      filter:
+        type: string
+        description: >-
+          GROQ filter expression selecting documents to delete
+          (e.g. _type == "tempImport").
+  steps:
+  - stepId: countMatches
+    description: >-
+      Count how many documents match the filter so the deletion blast radius is
+      known before any write.
+    operationId: queryDocumentsPost
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    requestBody:
+      contentType: application/json
+      payload:
+        query: "count(*[$filter])"
+        params:
+          filter: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      matchCount: $response.body#/result
+    onSuccess:
+    - name: hasMatches
+      type: goto
+      stepId: deleteMatches
+      criteria:
+      - context: $response.body
+        condition: $.result > 0
+        type: jsonpath
+    - name: noMatches
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.result == 0
+        type: jsonpath
+  - stepId: deleteMatches
+    description: >-
+      Issue a delete mutation that targets every document selected by the GROQ
+      query.
+    operationId: mutateDocuments
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: dataset
+      in: path
+      value: $inputs.dataset
+    - name: returnIds
+      in: query
+      value: true
+    requestBody:
+      contentType: application/json
+      payload:
+        mutations:
+        - delete:
+            query: "*[$filter]"
+            params:
+              filter: $inputs.filter
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      transactionId: $response.body#/transactionId
+      results: $response.body#/results
+  outputs:
+    matchCount: $steps.countMatches.outputs.matchCount
+    transactionId: $steps.deleteMatches.outputs.transactionId
+    results: $steps.deleteMatches.outputs.results

@@ -1,0 +1,99 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Bootstrap Project
+  summary: Create a project, add an initial dataset, then list the project datasets.
+  description: >-
+    The greenfield setup pattern for Sanity. The workflow creates a new project,
+    captures its generated id, provisions a first dataset inside that project,
+    and then lists the project's datasets to confirm the bootstrap completed.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: bootstrap-project
+  summary: Stand up a new project with an initial dataset in one pass.
+  description: >-
+    Creates a project, reads back its id, creates an initial dataset within the
+    new project, and lists the project's datasets to confirm the result.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - displayName
+    - datasetName
+    properties:
+      apiToken:
+        type: string
+        description: Sanity management API token used as a Bearer credential.
+      displayName:
+        type: string
+        description: Human-readable name for the new project.
+      organizationId:
+        type: string
+        description: Optional organization id to associate the project with.
+      datasetName:
+        type: string
+        description: Name for the initial dataset to create in the project.
+      aclMode:
+        type: string
+        description: Access control mode for the initial dataset (public or private).
+  steps:
+  - stepId: createProject
+    description: Create a new Sanity project and capture its generated id.
+    operationId: createProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        displayName: $inputs.displayName
+        organizationId: $inputs.organizationId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      projectId: $response.body#/id
+  - stepId: createInitialDataset
+    description: >-
+      Create the first dataset inside the newly created project using its
+      generated id.
+    operationId: createDataset
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $steps.createProject.outputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        datasetName: $inputs.datasetName
+        aclMode: $inputs.aclMode
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasetName: $response.body#/name
+  - stepId: listDatasets
+    description: List the project's datasets to confirm the bootstrap completed.
+    operationId: listDatasets
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $steps.createProject.outputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      datasets: $response.body
+  outputs:
+    projectId: $steps.createProject.outputs.projectId
+    datasetName: $steps.createInitialDataset.outputs.datasetName
+    datasets: $steps.listDatasets.outputs.datasets

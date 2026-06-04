@@ -1,0 +1,91 @@
+arazzo: 1.0.1
+info:
+  title: Sanity Rename Project
+  summary: Read a project, update its display name and metadata, then re-read it.
+  description: >-
+    A project-settings maintenance flow. The workflow reads the current project
+    to capture its existing display name, applies a patch that updates the
+    display name and metadata, and then re-reads the project to confirm the new
+    settings took effect. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: sanityApi
+  url: ../openapi/sanity-openapi.yml
+  type: openapi
+workflows:
+- workflowId: rename-project
+  summary: Update a project's display name and metadata and confirm the change.
+  description: >-
+    Reads the project's current settings, patches the display name and
+    metadata, and re-reads the project to confirm the update.
+  inputs:
+    type: object
+    required:
+    - apiToken
+    - projectId
+    - displayName
+    properties:
+      apiToken:
+        type: string
+        description: Sanity management API token used as a Bearer credential.
+      projectId:
+        type: string
+        description: The project id to update.
+      displayName:
+        type: string
+        description: The new human-readable display name for the project.
+      metadata:
+        type: object
+        description: Optional metadata object to set on the project.
+  steps:
+  - stepId: readBefore
+    description: Read the project to capture its current display name.
+    operationId: getProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      previousName: $response.body#/displayName
+  - stepId: updateProject
+    description: Patch the project's display name and metadata.
+    operationId: updateProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    requestBody:
+      contentType: application/json
+      payload:
+        displayName: $inputs.displayName
+        metadata: $inputs.metadata
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      updatedName: $response.body#/displayName
+  - stepId: readAfter
+    description: Re-read the project to confirm the new settings took effect.
+    operationId: getProject
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.apiToken"
+    - name: projectId
+      in: path
+      value: $inputs.projectId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      confirmedName: $response.body#/displayName
+  outputs:
+    previousName: $steps.readBefore.outputs.previousName
+    confirmedName: $steps.readAfter.outputs.confirmedName
