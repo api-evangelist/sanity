@@ -1,0 +1,453 @@
+"""
+Sanity GraphQL API — Base Schema (SDL)
+
+The Sanity GraphQL API is deployed per-project and per-dataset. The schema below
+defines the built-in system types that are always present, plus the root Query fields
+that are generated for the two built-in document types (SanityImageAsset and
+SanityFileAsset). User-defined document types generate additional query fields
+following the same all<TypeName> / <TypeName> pattern.
+
+Endpoint: https://{projectId}.api.sanity.io/v2025-02-19/graphql/{dataset}/default
+CDN:      https://{projectId}.apicdn.sanity.io/v2025-02-19/graphql/{dataset}/default
+
+Source: https://github.com/sanity-io/sanity/tree/main/packages/%40sanity/schema/src/sanity/builtinTypes
+Docs:   https://www.sanity.io/docs/graphql
+"""
+
+schema {
+  query: RootQuery
+}
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+"""
+An ISO 8601 date-time string (e.g. 2024-01-15T12:00:00Z).
+"""
+scalar DateTime
+
+"""
+An ISO 8601 date string (e.g. 2024-01-15).
+"""
+scalar Date
+
+"""
+Arbitrary JSON value — used for Portable Text raw fields and other untyped blobs.
+"""
+scalar JSON
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+# ---------------------------------------------------------------------------
+# Root Query
+# ---------------------------------------------------------------------------
+
+type RootQuery {
+  """Fetch a single SanityImageAsset document by its _id."""
+  SanityImageAsset(id: ID!): SanityImageAsset
+
+  """Fetch all SanityImageAsset documents with optional filtering, sorting, and pagination."""
+  allSanityImageAsset(
+    where: SanityImageAssetFilter
+    sort: [SanityImageAssetSorting!]
+    limit: Int
+    offset: Int
+  ): [SanityImageAsset!]!
+
+  """Fetch a single SanityFileAsset document by its _id."""
+  SanityFileAsset(id: ID!): SanityFileAsset
+
+  """Fetch all SanityFileAsset documents with optional filtering, sorting, and pagination."""
+  allSanityFileAsset(
+    where: SanityFileAssetFilter
+    sort: [SanityFileAssetSorting!]
+    limit: Int
+    offset: Int
+  ): [SanityFileAsset!]!
+}
+
+# ---------------------------------------------------------------------------
+# Document interface
+# ---------------------------------------------------------------------------
+
+"""
+Common fields present on every Sanity document type.
+"""
+interface Document {
+  _id: ID!
+  _type: String!
+  _createdAt: DateTime!
+  _updatedAt: DateTime!
+  _rev: String!
+}
+
+# ---------------------------------------------------------------------------
+# Built-in document types
+# ---------------------------------------------------------------------------
+
+"""
+A Sanity-managed image asset document stored in Content Lake.
+Uploaded images are stored as sanity.imageAsset documents and referenced
+from content documents via the Image object type.
+"""
+type SanityImageAsset implements Document {
+  _id: ID!
+  _type: String!
+  _createdAt: DateTime!
+  _updatedAt: DateTime!
+  _rev: String!
+  originalFilename: String
+  label: String
+  title: String
+  description: String
+  altText: String
+  sha1hash: String
+  extension: String
+  mimeType: String
+  size: Float
+  assetId: String
+  uploadId: String
+  path: String
+  url: String
+  metadata: SanityImageMetadata
+  source: SanityAssetSourceData
+}
+
+"""
+A Sanity-managed file asset document stored in Content Lake.
+Uploaded files are stored as sanity.fileAsset documents and referenced
+from content documents via the File object type.
+"""
+type SanityFileAsset implements Document {
+  _id: ID!
+  _type: String!
+  _createdAt: DateTime!
+  _updatedAt: DateTime!
+  _rev: String!
+  originalFilename: String
+  label: String
+  title: String
+  description: String
+  altText: String
+  sha1hash: String
+  extension: String
+  mimeType: String
+  size: Float
+  assetId: String
+  uploadId: String
+  path: String
+  url: String
+  source: SanityAssetSourceData
+}
+
+# ---------------------------------------------------------------------------
+# Built-in object types
+# ---------------------------------------------------------------------------
+
+"""
+Metadata automatically extracted from an uploaded image.
+"""
+type SanityImageMetadata {
+  location: Geopoint
+  dimensions: SanityImageDimensions
+  palette: SanityImagePalette
+  lqip: String
+  blurHash: String
+  thumbHash: String
+  hasAlpha: Boolean
+  isOpaque: Boolean
+}
+
+"""
+Pixel dimensions of an image.
+"""
+type SanityImageDimensions {
+  height: Float
+  width: Float
+  aspectRatio: Float
+}
+
+"""
+Hotspot — defines the focal point of an image for responsive cropping.
+Coordinates are expressed as fractions of the image dimensions (0.0–1.0).
+"""
+type SanityImageHotspot {
+  x: Float
+  y: Float
+  height: Float
+  width: Float
+}
+
+"""
+Crop — defines the portion of an image to display.
+Values are fractions of the image dimensions (0.0–1.0) cropped from each edge.
+"""
+type SanityImageCrop {
+  top: Float
+  bottom: Float
+  left: Float
+  right: Float
+}
+
+"""
+Color palette extracted from an image, containing up to seven named swatches.
+"""
+type SanityImagePalette {
+  darkMuted: SanityImagePaletteSwatch
+  lightVibrant: SanityImagePaletteSwatch
+  darkVibrant: SanityImagePaletteSwatch
+  vibrant: SanityImagePaletteSwatch
+  dominant: SanityImagePaletteSwatch
+  lightMuted: SanityImagePaletteSwatch
+  muted: SanityImagePaletteSwatch
+}
+
+"""
+A single color swatch from a palette, with background/foreground hex colors
+and a relative population value indicating how dominant the color is.
+"""
+type SanityImagePaletteSwatch {
+  background: String
+  foreground: String
+  population: Float
+  title: String
+}
+
+"""
+Metadata describing the original source of an asset (e.g. a stock photo service).
+"""
+type SanityAssetSourceData {
+  name: String
+  id: String
+  url: String
+}
+
+"""
+A geographical coordinate with latitude, longitude, and optional altitude.
+"""
+type Geopoint {
+  lat: Float
+  lng: Float
+  alt: Float
+}
+
+"""
+A URL-friendly identifier for a document, typically derived from a title field.
+"""
+type Slug {
+  current: String
+  source: String
+}
+
+"""
+An image field — references a SanityImageAsset with optional hotspot and crop.
+"""
+type Image {
+  asset: SanityImageAsset
+  hotspot: SanityImageHotspot
+  crop: SanityImageCrop
+}
+
+"""
+A file field — references a SanityFileAsset document.
+"""
+type File {
+  asset: SanityFileAsset
+}
+
+# ---------------------------------------------------------------------------
+# Filter input types — SanityImageAsset
+# ---------------------------------------------------------------------------
+
+input SanityImageAssetFilter {
+  _id: IDFilter
+  _type: StringFilter
+  _createdAt: DatetimeFilter
+  _updatedAt: DatetimeFilter
+  _rev: StringFilter
+  originalFilename: StringFilter
+  label: StringFilter
+  title: StringFilter
+  description: StringFilter
+  altText: StringFilter
+  sha1hash: StringFilter
+  extension: StringFilter
+  mimeType: StringFilter
+  size: FloatFilter
+  assetId: StringFilter
+  path: StringFilter
+  url: StringFilter
+  _: DocumentFilter
+}
+
+input SanityImageAssetSorting {
+  _id: SortOrder
+  _type: SortOrder
+  _createdAt: SortOrder
+  _updatedAt: SortOrder
+  _rev: SortOrder
+  originalFilename: SortOrder
+  label: SortOrder
+  title: SortOrder
+  description: SortOrder
+  altText: SortOrder
+  sha1hash: SortOrder
+  extension: SortOrder
+  mimeType: SortOrder
+  size: SortOrder
+  assetId: SortOrder
+  path: SortOrder
+  url: SortOrder
+}
+
+# ---------------------------------------------------------------------------
+# Filter input types — SanityFileAsset
+# ---------------------------------------------------------------------------
+
+input SanityFileAssetFilter {
+  _id: IDFilter
+  _type: StringFilter
+  _createdAt: DatetimeFilter
+  _updatedAt: DatetimeFilter
+  _rev: StringFilter
+  originalFilename: StringFilter
+  label: StringFilter
+  title: StringFilter
+  description: StringFilter
+  altText: StringFilter
+  sha1hash: StringFilter
+  extension: StringFilter
+  mimeType: StringFilter
+  size: FloatFilter
+  assetId: StringFilter
+  path: StringFilter
+  url: StringFilter
+  _: DocumentFilter
+}
+
+input SanityFileAssetSorting {
+  _id: SortOrder
+  _type: SortOrder
+  _createdAt: SortOrder
+  _updatedAt: SortOrder
+  _rev: SortOrder
+  originalFilename: SortOrder
+  label: SortOrder
+  title: SortOrder
+  description: SortOrder
+  altText: SortOrder
+  sha1hash: SortOrder
+  extension: SortOrder
+  mimeType: SortOrder
+  size: SortOrder
+  assetId: SortOrder
+  path: SortOrder
+  url: SortOrder
+}
+
+# ---------------------------------------------------------------------------
+# Scalar filter input types
+# ---------------------------------------------------------------------------
+
+"""
+Filter for String fields.
+"""
+input StringFilter {
+  eq: String
+  neq: String
+  matches: String
+  in: [String!]
+  nin: [String!]
+}
+
+"""
+Filter for ID fields.
+"""
+input IDFilter {
+  eq: ID
+  neq: ID
+  in: [ID!]
+  nin: [ID!]
+}
+
+"""
+Filter for Int fields.
+"""
+input IntFilter {
+  eq: Int
+  neq: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  in: [Int!]
+  nin: [Int!]
+}
+
+"""
+Filter for Float/number fields.
+"""
+input FloatFilter {
+  eq: Float
+  neq: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  in: [Float!]
+  nin: [Float!]
+}
+
+"""
+Filter for Boolean fields.
+"""
+input BooleanFilter {
+  eq: Boolean
+  neq: Boolean
+}
+
+"""
+Filter for DateTime fields.
+"""
+input DatetimeFilter {
+  eq: DateTime
+  neq: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+}
+
+"""
+Filter for Date fields.
+"""
+input DateFilter {
+  eq: Date
+  neq: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  in: [Date!]
+  nin: [Date!]
+}
+
+"""
+Special document-level filters available on every document type via the `_` field.
+"""
+input DocumentFilter {
+  """Return only documents that reference the given document ID."""
+  references: ID
+  """Return only draft documents (true) or only published documents (false)."""
+  is_draft: Boolean
+}
