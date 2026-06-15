@@ -1,0 +1,422 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/query/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name (e.g., production)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "GROQ query string"
+              },
+              {
+                "name": "perspective",
+                "value": "",
+                "type": "query",
+                "description": "Content perspective to query"
+              },
+              {
+                "name": "explain",
+                "value": "",
+                "type": "query",
+                "description": "Include query execution plan in response"
+              },
+              {
+                "name": "resultSourceMap",
+                "value": "",
+                "type": "query",
+                "description": "Include content source map metadata"
+              }
+            ]
+          },
+          "docs": "Query Content Lake using GROQ syntax. For queries under 11 KB, submit the query as a URL parameter. Use the CDN endpoint ({projectId}.apicdn.sanity.io) for edge-cached results."
+        },
+        {
+          "info": {
+            "name": "Query Documents (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/query/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query Content Lake using GROQ syntax via POST for queries exceeding 11 KB or when query parameters need to be passed in the body."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Mutations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mutate Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/mutate/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name"
+              },
+              {
+                "name": "returnIds",
+                "value": "",
+                "type": "query",
+                "description": "Return document IDs of created/modified documents"
+              },
+              {
+                "name": "returnDocuments",
+                "value": "",
+                "type": "query",
+                "description": "Return full documents after mutations"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Mutation visibility mode"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a batch of mutations (create, createOrReplace, createIfNotExists, patch, delete) to documents in the dataset."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload Image Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/assets/images/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Original filename for the asset"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Human-readable label for the asset"
+              }
+            ]
+          },
+          "docs": "Upload an image asset to the Sanity Content Lake. Supports common image formats (JPEG, PNG, WebP, GIF, SVG)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects"
+          },
+          "docs": "List all Sanity projects accessible to the authenticated user, ordered by creation date."
+        },
+        {
+          "info": {
+            "name": "Create Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Sanity project."
+        },
+        {
+          "info": {
+            "name": "Get Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific Sanity project."
+        },
+        {
+          "info": {
+            "name": "Update Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Sanity project's settings."
+        },
+        {
+          "info": {
+            "name": "List Datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/datasets",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all datasets for a project."
+        },
+        {
+          "info": {
+            "name": "Create Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/datasets",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new dataset in a project."
+        },
+        {
+          "info": {
+            "name": "List Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/tokens",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all API tokens for a project."
+        },
+        {
+          "info": {
+            "name": "Create Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/tokens",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new API token for a project. The token key is only returned at creation time and cannot be retrieved again."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/hooks/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all webhooks configured for a project."
+        },
+        {
+          "info": {
+            "name": "Create Webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/hooks/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new webhook for event notifications."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Listen",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Listen for Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/listen/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "GROQ query defining which documents to listen to"
+              },
+              {
+                "name": "includeResult",
+                "value": "",
+                "type": "query",
+                "description": "Include full document in change events"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Subscribe to real-time content changes via Server-Sent Events (SSE). The connection stays open and streams events when GROQ-matching documents are created, updated, or deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
