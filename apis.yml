@@ -8,7 +8,7 @@ description: Sanity is a composable content platform providing a headless CMS wi
   webhooks, scheduling, roles and permissions, vector embeddings, and AI-powered content
   agents.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
 - Headless CMS
 - Content Management
