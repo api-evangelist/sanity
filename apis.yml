@@ -163,6 +163,14 @@ apis:
   - type: Documentation
     url: https://www.sanity.io/docs/http-reference
 common:
+- type: TrustCenter
+  url: security/sanity-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/sanity-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/sanity-domain-security.yml
+- type: Authentication
+  url: authentication/sanity-authentication.yml
 - type: Arazzo
   url: arazzo/sanity-bootstrap-project-workflow.yml
   name: Sanity Bootstrap Project
