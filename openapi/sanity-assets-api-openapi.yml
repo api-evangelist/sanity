@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: Sanity HTTP Assets API
+  description: The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.
+  version: v2024-01-01
+  contact:
+    name: Sanity Support
+    url: https://www.sanity.io/docs
+  license:
+    name: Commercial
+    url: https://www.sanity.io/legal/terms
+servers:
+- url: https://{projectId}.api.sanity.io/v{apiVersion}
+  description: Sanity project-scoped API endpoint
+  variables:
+    projectId:
+      description: Your Sanity project ID
+      default: your-project-id
+    apiVersion:
+      description: API version date (YYYY-MM-DD)
+      default: '2024-01-01'
+- url: https://api.sanity.io/v{apiVersion}
+  description: Sanity management API endpoint
+  variables:
+    apiVersion:
+      description: API version date
+      default: '2024-01-01'
+security:
+- BearerAuth: []
+tags:
+- name: Assets
+  description: File and image asset management
+paths:
+  /assets/images/{dataset}:
+    post:
+      operationId: uploadImageAsset
+      summary: Upload Image Asset
+      description: Upload an image asset to the Sanity Content Lake. Supports common image formats (JPEG, PNG, WebP, GIF, SVG).
+      tags:
+      - Assets
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: filename
+        in: query
+        schema:
+          type: string
+        description: Original filename for the asset
+      - name: label
+        in: query
+        schema:
+          type: string
+        description: Human-readable label for the asset
+      requestBody:
+        required: true
+        content:
+          image/*:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '200':
+          description: Asset uploaded successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDocument'
+components:
+  schemas:
+    AssetDocument:
+      type: object
+      properties:
+        document:
+          type: object
+          properties:
+            _id:
+              type: string
+            _type:
+              type: string
+              enum:
+              - sanity.imageAsset
+              - sanity.fileAsset
+            url:
+              type: string
+            path:
+              type: string
+            mimeType:
+              type: string
+            size:
+              type: integer
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Sanity project API token

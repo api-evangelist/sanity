@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Sanity HTTP Assets Webhooks API
+  description: The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.
+  version: v2024-01-01
+  contact:
+    name: Sanity Support
+    url: https://www.sanity.io/docs
+  license:
+    name: Commercial
+    url: https://www.sanity.io/legal/terms
+servers:
+- url: https://{projectId}.api.sanity.io/v{apiVersion}
+  description: Sanity project-scoped API endpoint
+  variables:
+    projectId:
+      description: Your Sanity project ID
+      default: your-project-id
+    apiVersion:
+      description: API version date (YYYY-MM-DD)
+      default: '2024-01-01'
+- url: https://api.sanity.io/v{apiVersion}
+  description: Sanity management API endpoint
+  variables:
+    apiVersion:
+      description: API version date
+      default: '2024-01-01'
+security:
+- BearerAuth: []
+tags:
+- name: Webhooks
+  description: Event notification configuration
+paths:
+  /hooks/projects/{projectId}:
+    get:
+      operationId: listWebhooks
+      summary: List Webhooks
+      description: List all webhooks configured for a project.
+      tags:
+      - Webhooks
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List of webhooks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+    post:
+      operationId: createWebhook
+      summary: Create Webhook
+      description: Create a new webhook for event notifications.
+      tags:
+      - Webhooks
+      parameters:
+      - name: projectId
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookInput'
+      responses:
+        '201':
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+components:
+  schemas:
+    WebhookInput:
+      type: object
+      required:
+      - name
+      - url
+      - dataset
+      - true
+      properties:
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        dataset:
+          type: string
+        filter:
+          type: string
+        projection:
+          type: string
+        true:
+          type: array
+          items:
+            type: string
+            enum:
+            - create
+            - update
+            - delete
+        secret:
+          type: string
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        dataset:
+          type: string
+        filter:
+          type: string
+          description: GROQ filter expression
+        projection:
+          type: string
+        true:
+          type: array
+          items:
+            type: string
+        isDisabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Sanity project API token

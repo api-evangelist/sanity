@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Sanity HTTP Assets Listen API
+  description: The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.
+  version: v2024-01-01
+  contact:
+    name: Sanity Support
+    url: https://www.sanity.io/docs
+  license:
+    name: Commercial
+    url: https://www.sanity.io/legal/terms
+servers:
+- url: https://{projectId}.api.sanity.io/v{apiVersion}
+  description: Sanity project-scoped API endpoint
+  variables:
+    projectId:
+      description: Your Sanity project ID
+      default: your-project-id
+    apiVersion:
+      description: API version date (YYYY-MM-DD)
+      default: '2024-01-01'
+- url: https://api.sanity.io/v{apiVersion}
+  description: Sanity management API endpoint
+  variables:
+    apiVersion:
+      description: API version date
+      default: '2024-01-01'
+security:
+- BearerAuth: []
+tags:
+- name: Listen
+  description: Real-time event streaming
+paths:
+  /data/listen/{dataset}:
+    get:
+      operationId: listenForChanges
+      summary: Listen for Changes
+      description: Subscribe to real-time content changes via Server-Sent Events (SSE). The connection stays open and streams events when GROQ-matching documents are created, updated, or deleted.
+      tags:
+      - Listen
+      parameters:
+      - name: dataset
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: query
+        in: query
+        required: true
+        schema:
+          type: string
+        description: GROQ query defining which documents to listen to
+      - name: includeResult
+        in: query
+        schema:
+          type: boolean
+        description: Include full document in change events
+      - name: visibility
+        in: query
+        schema:
+          type: string
+          enum:
+          - query
+          - transaction
+      responses:
+        '200':
+          description: SSE stream of change events
+          content:
+            text/event-stream:
+              schema:
+                type: string
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Sanity project API token
