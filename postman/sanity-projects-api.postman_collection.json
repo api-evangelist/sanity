@@ -1,0 +1,868 @@
+{
+  "info": {
+    "_postman_id": "afb7ec4a-acf1-44e5-80e1-1924dbc54a6c",
+    "name": "Sanity HTTP Assets Projects API",
+    "description": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:52.000Z",
+    "updatedAt": "2026-07-28T02:50:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-afb7ec4a-acf1-44e5-80e1-1924dbc54a6c"
+  },
+  "item": [
+    {
+      "name": "projects",
+      "item": [
+        {
+          "name": "{projectId}",
+          "item": [
+            {
+              "name": "datasets",
+              "item": [
+                {
+                  "name": "List Datasets",
+                  "id": "d6c4f5f5-05b9-4f57-b165-5fca7e468487",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/datasets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "datasets"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a91711f2-ba79-4946-8945-74bbcadc871d",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "List all datasets for a project."
+                  },
+                  "response": [
+                    {
+                      "id": "041f74eb-700a-4344-86d8-2fc8f50f25c2",
+                      "name": "List of datasets",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/datasets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "datasets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"name\": \"<string>\",\n    \"aclMode\": \"private\"\n  },\n  {\n    \"name\": \"<string>\",\n    \"aclMode\": \"private\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:50:53.000Z",
+                      "updatedAt": "2026-07-28T02:50:53.000Z",
+                      "uid": "35240-041f74eb-700a-4344-86d8-2fc8f50f25c2"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-d6c4f5f5-05b9-4f57-b165-5fca7e468487"
+                },
+                {
+                  "name": "Create Dataset",
+                  "id": "6bd5a82e-6b2b-4d60-947e-ef94b87351f7",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"datasetName\": \"<string>\",\n  \"aclMode\": \"private\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/datasets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "datasets"
+                      ],
+                      "variable": [
+                        {
+                          "id": "026fe51f-3853-46c7-9d71-9baa1ae366d5",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Create a new dataset in a project."
+                  },
+                  "response": [
+                    {
+                      "id": "4211e864-28bc-44db-b133-01a308525415",
+                      "name": "Dataset created",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"datasetName\": \"<string>\",\n  \"aclMode\": \"private\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/datasets",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "datasets"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"name\": \"<string>\",\n  \"aclMode\": \"public\"\n}",
+                      "createdAt": "2026-07-28T02:50:53.000Z",
+                      "updatedAt": "2026-07-28T02:50:53.000Z",
+                      "uid": "35240-4211e864-28bc-44db-b133-01a308525415"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-6bd5a82e-6b2b-4d60-947e-ef94b87351f7"
+                }
+              ],
+              "id": "f2ae1ee7-91e2-4937-ad1a-aa35d607d042",
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-f2ae1ee7-91e2-4937-ad1a-aa35d607d042"
+            },
+            {
+              "name": "tokens",
+              "item": [
+                {
+                  "name": "List Tokens",
+                  "id": "37966999-d737-4659-8252-1a2fd7cdd8de",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "tokens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a13480df-5278-456a-97db-e252a1b98c2b",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "List all API tokens for a project."
+                  },
+                  "response": [
+                    {
+                      "id": "2f3b305e-012f-4dd5-a7ae-06e229429311",
+                      "name": "List of tokens",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"label\": \"<string>\",\n    \"roleName\": \"<string>\",\n    \"createdAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"label\": \"<string>\",\n    \"roleName\": \"<string>\",\n    \"createdAt\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:50:53.000Z",
+                      "updatedAt": "2026-07-28T02:50:53.000Z",
+                      "uid": "35240-2f3b305e-012f-4dd5-a7ae-06e229429311"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-37966999-d737-4659-8252-1a2fd7cdd8de"
+                },
+                {
+                  "name": "Create Token",
+                  "id": "63e28a3d-99c9-4601-b3f6-a676b04de96d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"label\": \"<string>\",\n  \"roleName\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId/tokens",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId",
+                        "tokens"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b8efae14-0330-4c43-ba9d-ef55061c2234",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Create a new API token for a project. The token key is only returned at creation time and cannot be retrieved again."
+                  },
+                  "response": [
+                    {
+                      "id": "36b7d378-64ef-4a11-89ac-8078b5b15c4d",
+                      "name": "Token created with key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"label\": \"<string>\",\n  \"roleName\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/projects/:projectId/tokens",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "projects",
+                            ":projectId",
+                            "tokens"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"label\": \"<string>\",\n  \"roleName\": \"<string>\",\n  \"createdAt\": \"<dateTime>\",\n  \"key\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T02:50:53.000Z",
+                      "updatedAt": "2026-07-28T02:50:53.000Z",
+                      "uid": "35240-36b7d378-64ef-4a11-89ac-8078b5b15c4d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-63e28a3d-99c9-4601-b3f6-a676b04de96d"
+                }
+              ],
+              "id": "2bb3bc5f-c1c7-41a3-aef8-4139b92cad3c",
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-2bb3bc5f-c1c7-41a3-aef8-4139b92cad3c"
+            },
+            {
+              "name": "Get Project",
+              "id": "caeae8a6-5bf8-4ab8-b2d7-781ea84238ff",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects/:projectId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "bc1e4af8-a4ca-4476-b7bf-e5a7f9165a5c",
+                      "key": "projectId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Retrieve details for a specific Sanity project."
+              },
+              "response": [
+                {
+                  "id": "c9704495-b9c1-4141-b6f1-fcbf14c9a89f",
+                  "name": "Project details",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"isBlocked\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-c9704495-b9c1-4141-b6f1-fcbf14c9a89f"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-caeae8a6-5bf8-4ab8-b2d7-781ea84238ff"
+            },
+            {
+              "name": "Update Project",
+              "id": "8953b1d6-c115-4377-bf04-bd219e577678",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"metadata\": {}\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects/:projectId",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "variable": [
+                    {
+                      "id": "c518820c-414f-4505-b900-ff394e42d3cf",
+                      "key": "projectId",
+                      "value": "<string>",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "description": "Update a Sanity project's settings."
+              },
+              "response": [
+                {
+                  "id": "837e1477-145d-4d4a-b5ea-996e87033308",
+                  "name": "Project updated",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"displayName\": \"<string>\",\n  \"metadata\": {}\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/projects/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "projects",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "projectId"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"isBlocked\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T02:50:53.000Z",
+                  "updatedAt": "2026-07-28T02:50:53.000Z",
+                  "uid": "35240-837e1477-145d-4d4a-b5ea-996e87033308"
+                }
+              ],
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-8953b1d6-c115-4377-bf04-bd219e577678"
+            }
+          ],
+          "id": "ecaafe01-9a3f-46d2-b89c-986aebc5d4c0",
+          "createdAt": "2026-07-28T02:50:53.000Z",
+          "updatedAt": "2026-07-28T02:50:53.000Z",
+          "uid": "35240-ecaafe01-9a3f-46d2-b89c-986aebc5d4c0"
+        },
+        {
+          "name": "List Projects",
+          "id": "263abf8a-c9e4-41a4-96b9-057d5036dcd0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "List all Sanity projects accessible to the authenticated user, ordered by creation date."
+          },
+          "response": [
+            {
+              "id": "b6bcfdfc-6059-4849-8779-2c064e85e977",
+              "name": "List of projects",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "[\n  {\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"organizationId\": \"<string>\",\n    \"isBlocked\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"displayName\": \"<string>\",\n    \"organizationId\": \"<string>\",\n    \"isBlocked\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\",\n    \"updatedAt\": \"<dateTime>\"\n  }\n]",
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-b6bcfdfc-6059-4849-8779-2c064e85e977"
+            }
+          ],
+          "createdAt": "2026-07-28T02:50:53.000Z",
+          "updatedAt": "2026-07-28T02:50:53.000Z",
+          "uid": "35240-263abf8a-c9e4-41a4-96b9-057d5036dcd0"
+        },
+        {
+          "name": "Create Project",
+          "id": "e9c46b6c-e0a2-4b19-8a7b-b9fafaa39bf0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "projects"
+              ]
+            },
+            "description": "Create a new Sanity project."
+          },
+          "response": [
+            {
+              "id": "4afe8213-b792-4887-8767-362664bdd088",
+              "name": "Project created",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/projects",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "projects"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\",\n  \"isBlocked\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\",\n  \"updatedAt\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T02:50:53.000Z",
+              "updatedAt": "2026-07-28T02:50:53.000Z",
+              "uid": "35240-4afe8213-b792-4887-8767-362664bdd088"
+            }
+          ],
+          "createdAt": "2026-07-28T02:50:53.000Z",
+          "updatedAt": "2026-07-28T02:50:53.000Z",
+          "uid": "35240-e9c46b6c-e0a2-4b19-8a7b-b9fafaa39bf0"
+        }
+      ],
+      "id": "d1316653-ce7d-430f-b63a-1cd316b09891",
+      "createdAt": "2026-07-28T02:50:53.000Z",
+      "updatedAt": "2026-07-28T02:50:53.000Z",
+      "uid": "35240-d1316653-ce7d-430f-b63a-1cd316b09891"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "projectId",
+      "value": "your-project-id"
+    },
+    {
+      "key": "apiVersion",
+      "value": "2024-01-01"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}"
+    }
+  ]
+}

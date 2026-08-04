@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "4559f801-5286-48c2-b7d1-5d82b24fbc91",
+    "name": "Sanity HTTP Assets Listen API",
+    "description": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:51.000Z",
+    "updatedAt": "2026-07-28T02:50:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4559f801-5286-48c2-b7d1-5d82b24fbc91"
+  },
+  "item": [
+    {
+      "name": "data",
+      "item": [
+        {
+          "name": "listen",
+          "item": [
+            {
+              "name": "{dataset}",
+              "item": [
+                {
+                  "name": "Listen for Changes",
+                  "id": "35a14ffe-9995-4472-ad04-9577a39affaa",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "text/event-stream"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/data/listen/:dataset?query=<string>&includeResult=<boolean>&visibility=transaction",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "data",
+                        "listen",
+                        ":dataset"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) GROQ query defining which documents to listen to",
+                          "key": "query",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Include full document in change events",
+                          "key": "includeResult",
+                          "value": "<boolean>"
+                        },
+                        {
+                          "key": "visibility",
+                          "value": "transaction"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "575e0d65-1a87-4c86-a560-4bae9d0b6ff6",
+                          "key": "dataset",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Subscribe to real-time content changes via Server-Sent Events (SSE). The connection stays open and streams events when GROQ-matching documents are created, updated, or deleted."
+                  },
+                  "response": [
+                    {
+                      "id": "58a52936-191e-4561-b61c-4d7ec89f34cd",
+                      "name": "SSE stream of change events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "text/event-stream"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/data/listen/:dataset?query=<string>&includeResult=<boolean>&visibility=transaction",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "data",
+                            "listen",
+                            ":dataset"
+                          ],
+                          "query": [
+                            {
+                              "description": "(Required) GROQ query defining which documents to listen to",
+                              "key": "query",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Include full document in change events",
+                              "key": "includeResult",
+                              "value": "<boolean>"
+                            },
+                            {
+                              "key": "visibility",
+                              "value": "transaction"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dataset"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "text/event-stream"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<string>",
+                      "createdAt": "2026-07-28T02:50:51.000Z",
+                      "updatedAt": "2026-07-28T02:50:51.000Z",
+                      "uid": "35240-58a52936-191e-4561-b61c-4d7ec89f34cd"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:51.000Z",
+                  "updatedAt": "2026-07-28T02:50:51.000Z",
+                  "uid": "35240-35a14ffe-9995-4472-ad04-9577a39affaa"
+                }
+              ],
+              "id": "0dd29be2-6508-4997-8f86-0ad2d0002e65",
+              "createdAt": "2026-07-28T02:50:51.000Z",
+              "updatedAt": "2026-07-28T02:50:51.000Z",
+              "uid": "35240-0dd29be2-6508-4997-8f86-0ad2d0002e65"
+            }
+          ],
+          "id": "48dbc94a-1ac3-4159-9775-4c576927c900",
+          "createdAt": "2026-07-28T02:50:51.000Z",
+          "updatedAt": "2026-07-28T02:50:51.000Z",
+          "uid": "35240-48dbc94a-1ac3-4159-9775-4c576927c900"
+        }
+      ],
+      "id": "169272af-4470-468c-93db-e023c96e9ace",
+      "createdAt": "2026-07-28T02:50:51.000Z",
+      "updatedAt": "2026-07-28T02:50:51.000Z",
+      "uid": "35240-169272af-4470-468c-93db-e023c96e9ace"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "projectId",
+      "value": "your-project-id"
+    },
+    {
+      "key": "apiVersion",
+      "value": "2024-01-01"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}"
+    }
+  ]
+}

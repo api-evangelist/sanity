@@ -1,0 +1,24 @@
+{
+  "provider": "sanity",
+  "sources": [
+    "sanity-assets-api-openapi.yml",
+    "sanity-listen-api-openapi.yml",
+    "sanity-mutations-api-openapi.yml",
+    "sanity-projects-api-openapi.yml",
+    "sanity-query-api-openapi.yml",
+    "sanity-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "sanity-assets-api-openapi.yml",
+    "sanity-listen-api-openapi.yml",
+    "sanity-mutations-api-openapi.yml",
+    "sanity-projects-api-openapi.yml",
+    "sanity-query-api-openapi.yml",
+    "sanity-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

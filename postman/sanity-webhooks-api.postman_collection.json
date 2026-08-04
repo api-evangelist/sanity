@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "7ade7591-ff98-4d4e-b875-0eb3de57074f",
+    "name": "Sanity HTTP Assets Webhooks API",
+    "description": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:54.000Z",
+    "updatedAt": "2026-07-28T02:50:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7ade7591-ff98-4d4e-b875-0eb3de57074f"
+  },
+  "item": [
+    {
+      "name": "hooks",
+      "item": [
+        {
+          "name": "projects",
+          "item": [
+            {
+              "name": "{projectId}",
+              "item": [
+                {
+                  "name": "List Webhooks",
+                  "id": "5a2d5a56-858d-4ca6-85cc-609c11aaa928",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/hooks/projects/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hooks",
+                        "projects",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "d3a1487c-0c27-4722-b91d-ecf8c7a06200",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "List all webhooks configured for a project."
+                  },
+                  "response": [
+                    {
+                      "id": "81a37d6c-6c70-487b-8d52-8b6244cf550f",
+                      "name": "List of webhooks",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/hooks/projects/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hooks",
+                            "projects",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "[\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"dataset\": \"<string>\",\n    \"filter\": \"<string>\",\n    \"projection\": \"<string>\",\n    \"true\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isDisabled\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\"\n  },\n  {\n    \"id\": \"<string>\",\n    \"name\": \"<string>\",\n    \"url\": \"<uri>\",\n    \"dataset\": \"<string>\",\n    \"filter\": \"<string>\",\n    \"projection\": \"<string>\",\n    \"true\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"isDisabled\": \"<boolean>\",\n    \"createdAt\": \"<dateTime>\"\n  }\n]",
+                      "createdAt": "2026-07-28T02:50:55.000Z",
+                      "updatedAt": "2026-07-28T02:50:55.000Z",
+                      "uid": "35240-81a37d6c-6c70-487b-8d52-8b6244cf550f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:55.000Z",
+                  "updatedAt": "2026-07-28T02:50:55.000Z",
+                  "uid": "35240-5a2d5a56-858d-4ca6-85cc-609c11aaa928"
+                },
+                {
+                  "name": "Create Webhook",
+                  "id": "c3e27922-c537-43d6-8c2c-70a17b493ba0",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"dataset\": \"<string>\",\n  \"true\": [\n    \"create\",\n    \"delete\"\n  ],\n  \"filter\": \"<string>\",\n  \"projection\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/hooks/projects/:projectId",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "hooks",
+                        "projects",
+                        ":projectId"
+                      ],
+                      "variable": [
+                        {
+                          "id": "45fc7a53-5284-4b61-8c73-f360dfb80c0e",
+                          "key": "projectId",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Create a new webhook for event notifications."
+                  },
+                  "response": [
+                    {
+                      "id": "19236bb2-f0f5-471d-b775-254b7536a264",
+                      "name": "Webhook created",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"dataset\": \"<string>\",\n  \"true\": [\n    \"create\",\n    \"delete\"\n  ],\n  \"filter\": \"<string>\",\n  \"projection\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/hooks/projects/:projectId",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "hooks",
+                            "projects",
+                            ":projectId"
+                          ],
+                          "variable": [
+                            {
+                              "key": "projectId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"dataset\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"projection\": \"<string>\",\n  \"true\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"isDisabled\": \"<boolean>\",\n  \"createdAt\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T02:50:55.000Z",
+                      "updatedAt": "2026-07-28T02:50:55.000Z",
+                      "uid": "35240-19236bb2-f0f5-471d-b775-254b7536a264"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:55.000Z",
+                  "updatedAt": "2026-07-28T02:50:55.000Z",
+                  "uid": "35240-c3e27922-c537-43d6-8c2c-70a17b493ba0"
+                }
+              ],
+              "id": "bee3bc36-23ea-44b1-8cbf-0a56c2b46765",
+              "createdAt": "2026-07-28T02:50:55.000Z",
+              "updatedAt": "2026-07-28T02:50:55.000Z",
+              "uid": "35240-bee3bc36-23ea-44b1-8cbf-0a56c2b46765"
+            }
+          ],
+          "id": "d3d26641-49ea-4591-a064-e32697c3463c",
+          "createdAt": "2026-07-28T02:50:55.000Z",
+          "updatedAt": "2026-07-28T02:50:55.000Z",
+          "uid": "35240-d3d26641-49ea-4591-a064-e32697c3463c"
+        }
+      ],
+      "id": "bc20369c-1a87-45c5-8baa-1f0fb1ca17ba",
+      "createdAt": "2026-07-28T02:50:55.000Z",
+      "updatedAt": "2026-07-28T02:50:55.000Z",
+      "uid": "35240-bc20369c-1a87-45c5-8baa-1f0fb1ca17ba"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "projectId",
+      "value": "your-project-id"
+    },
+    {
+      "key": "apiVersion",
+      "value": "2024-01-01"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}"
+    }
+  ]
+}

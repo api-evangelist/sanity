@@ -1,0 +1,195 @@
+{
+  "info": {
+    "_postman_id": "84b10a24-225d-487d-88af-3e8c16ee1111",
+    "name": "Sanity HTTP Assets API",
+    "description": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T02:50:50.000Z",
+    "updatedAt": "2026-07-28T02:50:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-84b10a24-225d-487d-88af-3e8c16ee1111"
+  },
+  "item": [
+    {
+      "name": "assets",
+      "item": [
+        {
+          "name": "images",
+          "item": [
+            {
+              "name": "{dataset}",
+              "item": [
+                {
+                  "name": "Upload Image Asset",
+                  "id": "4d1bbd3b-40b2-4f19-8ba3-24dc2b80e5ee",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "image/*"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "file",
+                      "file": {}
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/assets/images/:dataset?filename=<string>&label=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "assets",
+                        "images",
+                        ":dataset"
+                      ],
+                      "query": [
+                        {
+                          "description": "Original filename for the asset",
+                          "key": "filename",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Human-readable label for the asset",
+                          "key": "label",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "42259f04-b42a-4fa1-b7d9-d4364ee3ea8e",
+                          "key": "dataset",
+                          "value": "<string>",
+                          "description": "(Required) "
+                        }
+                      ]
+                    },
+                    "description": "Upload an image asset to the Sanity Content Lake. Supports common image formats (JPEG, PNG, WebP, GIF, SVG)."
+                  },
+                  "response": [
+                    {
+                      "id": "3fae25ae-ad60-4511-87b0-deda23dbdbe5",
+                      "name": "Asset uploaded successfully",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "image/*"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "file",
+                          "file": {}
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/assets/images/:dataset?filename=<string>&label=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "assets",
+                            "images",
+                            ":dataset"
+                          ],
+                          "query": [
+                            {
+                              "description": "Original filename for the asset",
+                              "key": "filename",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Human-readable label for the asset",
+                              "key": "label",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "dataset"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"document\": {\n    \"_id\": \"<string>\",\n    \"_type\": \"sanity.fileAsset\",\n    \"url\": \"<string>\",\n    \"path\": \"<string>\",\n    \"mimeType\": \"<string>\",\n    \"size\": \"<integer>\"\n  }\n}",
+                      "createdAt": "2026-07-28T02:50:50.000Z",
+                      "updatedAt": "2026-07-28T02:50:50.000Z",
+                      "uid": "35240-3fae25ae-ad60-4511-87b0-deda23dbdbe5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T02:50:50.000Z",
+                  "updatedAt": "2026-07-28T02:50:50.000Z",
+                  "uid": "35240-4d1bbd3b-40b2-4f19-8ba3-24dc2b80e5ee"
+                }
+              ],
+              "id": "b39d3e33-56cc-4340-a6b0-e0d8eed2f31e",
+              "createdAt": "2026-07-28T02:50:50.000Z",
+              "updatedAt": "2026-07-28T02:50:50.000Z",
+              "uid": "35240-b39d3e33-56cc-4340-a6b0-e0d8eed2f31e"
+            }
+          ],
+          "id": "95ecd59b-c509-480d-8d58-0b1a297bed45",
+          "createdAt": "2026-07-28T02:50:50.000Z",
+          "updatedAt": "2026-07-28T02:50:50.000Z",
+          "uid": "35240-95ecd59b-c509-480d-8d58-0b1a297bed45"
+        }
+      ],
+      "id": "23df5a78-5e12-4abc-8d6a-5ecddf4e6302",
+      "createdAt": "2026-07-28T02:50:50.000Z",
+      "updatedAt": "2026-07-28T02:50:50.000Z",
+      "uid": "35240-23df5a78-5e12-4abc-8d6a-5ecddf4e6302"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "projectId",
+      "value": "your-project-id"
+    },
+    {
+      "key": "apiVersion",
+      "value": "2024-01-01"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}"
+    }
+  ]
+}
