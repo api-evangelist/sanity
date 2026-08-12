@@ -341,8 +341,6 @@ common:
   url: vocabulary/sanity-vocabulary.yml
 - type: SpectralRules
   url: rules/sanity-rules.yml
-- type: Capabilities
-  url: capabilities/content-management.yaml
 - type: JSONLD
   url: json-ld/sanity-context.jsonld
 - name: MCP Server
