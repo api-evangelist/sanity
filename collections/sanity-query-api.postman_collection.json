@@ -1,0 +1,522 @@
+{
+  "item": [
+    {
+      "id": "1155095d-358e-4b00-8e00-89f3bbd3dd91",
+      "name": "Query",
+      "description": {
+        "content": "GROQ query operations against Content Lake",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "49a8c787-03e3-4b15-8c2a-7861eb76db7f",
+          "name": "Query Documents",
+          "request": {
+            "name": "Query Documents",
+            "description": {
+              "content": "Query Content Lake using GROQ syntax. For queries under 11 KB, submit the query as a URL parameter. Use the CDN endpoint ({projectId}.apicdn.sanity.io) for edge-cached results.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "query",
+                ":dataset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) GROQ query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "perspective",
+                  "value": "<string>",
+                  "description": "Content perspective to query"
+                },
+                {
+                  "disabled": false,
+                  "key": "explain",
+                  "value": "<boolean>",
+                  "description": "Include query execution plan in response"
+                },
+                {
+                  "disabled": false,
+                  "key": "resultSourceMap",
+                  "value": "<boolean>",
+                  "description": "Include content source map metadata"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataset",
+                  "description": "(Required) Dataset name (e.g., production)"
+                },
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2bcf5a87-0753-40d3-9291-5cb679ee5db0",
+              "name": "Query results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "query",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "perspective",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "resultSourceMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) Dataset name (e.g., production)"
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ms\": 4401,\n  \"query\": \"string\",\n  \"result\": {},\n  \"syncTags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a42dcba4-90ab-4783-99e2-dbe0a3bc318f",
+              "name": "Invalid GROQ query",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "query",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "perspective",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "resultSourceMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) Dataset name (e.g., production)"
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4ff78eb-7275-45cf-8b61-d04da097b9fe",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "query",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "perspective",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "explain",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "resultSourceMap",
+                      "value": "<boolean>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) Dataset name (e.g., production)"
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cff41a1b-84ff-43d3-8c34-bbe2fe8742bc",
+          "name": "Query Documents (POST)",
+          "request": {
+            "name": "Query Documents (POST)",
+            "description": {
+              "content": "Query Content Lake using GROQ syntax via POST for queries exceeding 11 KB or when query parameters need to be passed in the body.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "query",
+                ":dataset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataset",
+                  "description": "(Required) Dataset name"
+                },
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"params\": \"<object>\",\n  \"perspective\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "119aaaab-91ef-44ca-b1fd-d291d3de92f7",
+              "name": "Query results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "query",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) Dataset name"
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"params\": \"<object>\",\n  \"perspective\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ms\": 1993,\n  \"query\": \"string\",\n  \"result\": {},\n  \"syncTags\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a6be60bc-8546-43cd-af00-aabf426460ac",
+    "name": "Sanity HTTP Assets Query API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

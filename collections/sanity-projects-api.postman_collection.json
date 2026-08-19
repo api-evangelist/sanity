@@ -1,0 +1,1007 @@
+{
+  "item": [
+    {
+      "id": "cdc16b0a-4080-402d-bc87-2db4721f458e",
+      "name": "Projects",
+      "description": {
+        "content": "Project and dataset management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6dcf342e-62a5-49af-8378-0a0488a271d7",
+          "name": "List Projects",
+          "request": {
+            "name": "List Projects",
+            "description": {
+              "content": "List all Sanity projects accessible to the authenticated user, ordered by creation date.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c03166cb-c701-4c1f-a9c2-59714f5a06d2",
+              "name": "List of projects",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"organizationId\": \"string\",\n    \"isBlocked\": false,\n    \"createdAt\": \"1959-06-22T05:42:04.435Z\",\n    \"updatedAt\": \"1986-12-05T16:30:44.507Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"displayName\": \"string\",\n    \"organizationId\": \"string\",\n    \"isBlocked\": false,\n    \"createdAt\": \"1947-02-01T11:13:00.560Z\",\n    \"updatedAt\": \"1950-10-19T12:50:53.921Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a5bf2a9-1c79-4033-ac13-17353d842391",
+          "name": "Create Project",
+          "request": {
+            "name": "Create Project",
+            "description": {
+              "content": "Create a new Sanity project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a546e74a-8190-4a16-8a7b-8698eb065a7c",
+              "name": "Project created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"organizationId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"organizationId\": \"string\",\n  \"isBlocked\": true,\n  \"createdAt\": \"1961-11-15T21:37:56.860Z\",\n  \"updatedAt\": \"2015-11-25T23:39:03.466Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52af0667-5299-4d34-afcc-64b7892c306a",
+          "name": "Get Project",
+          "request": {
+            "name": "Get Project",
+            "description": {
+              "content": "Retrieve details for a specific Sanity project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "40f960c0-5e31-45e3-926b-87dacbb0fd9e",
+              "name": "Project details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"organizationId\": \"string\",\n  \"isBlocked\": true,\n  \"createdAt\": \"1961-11-15T21:37:56.860Z\",\n  \"updatedAt\": \"2015-11-25T23:39:03.466Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a007c771-e29a-4a68-93f0-8236053582bb",
+          "name": "Update Project",
+          "request": {
+            "name": "Update Project",
+            "description": {
+              "content": "Update a Sanity project's settings.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"displayName\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1a4ea7e0-35e8-4e11-a69c-3508bb6d92c8",
+              "name": "Project updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"displayName\": \"<string>\",\n  \"metadata\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"organizationId\": \"string\",\n  \"isBlocked\": true,\n  \"createdAt\": \"1961-11-15T21:37:56.860Z\",\n  \"updatedAt\": \"2015-11-25T23:39:03.466Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffa3be74-ab46-45ec-ba2c-4c2f7cb54ba3",
+          "name": "List Datasets",
+          "request": {
+            "name": "List Datasets",
+            "description": {
+              "content": "List all datasets for a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a6061b0-d54e-4a52-afdb-24d1f2ef2e4a",
+              "name": "List of datasets",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"aclMode\": \"public\"\n  },\n  {\n    \"name\": \"string\",\n    \"aclMode\": \"public\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb0a985a-0104-4aa9-8125-3118a613e629",
+          "name": "Create Dataset",
+          "request": {
+            "name": "Create Dataset",
+            "description": {
+              "content": "Create a new dataset in a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "datasets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"datasetName\": \"<string>\",\n  \"aclMode\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "54dc93d5-1d31-4bc8-b06f-fb98fd44706c",
+              "name": "Dataset created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "datasets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"datasetName\": \"<string>\",\n  \"aclMode\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"string\",\n  \"aclMode\": \"private\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2e7e7b19-ebb8-4b35-a4b8-4ee8a6d3bf0a",
+          "name": "List Tokens",
+          "request": {
+            "name": "List Tokens",
+            "description": {
+              "content": "List all API tokens for a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e81fc71a-0290-4f95-b1a9-cc5ddcf266a0",
+              "name": "List of tokens",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"label\": \"string\",\n    \"roleName\": \"string\",\n    \"createdAt\": \"1958-09-19T01:21:51.753Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"label\": \"string\",\n    \"roleName\": \"string\",\n    \"createdAt\": \"1961-05-06T03:07:26.867Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8d22414-56ef-4f36-b4ae-5c14038caba4",
+          "name": "Create Token",
+          "request": {
+            "name": "Create Token",
+            "description": {
+              "content": "Create a new API token for a project. The token key is only returned at creation time and cannot be retrieved again.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "projects",
+                ":projectId",
+                "tokens"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"label\": \"<string>\",\n  \"roleName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e27dea2f-79e5-46cc-9f04-edc368457d99",
+              "name": "Token created with key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "projects",
+                    ":projectId",
+                    "tokens"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"label\": \"<string>\",\n  \"roleName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"label\": \"string\",\n  \"roleName\": \"string\",\n  \"createdAt\": \"1951-11-22T07:34:44.734Z\",\n  \"key\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "64988f35-b641-4dbf-8f9f-12a7d0d521f8",
+    "name": "Sanity HTTP Assets Projects API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

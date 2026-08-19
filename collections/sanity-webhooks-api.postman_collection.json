@@ -1,0 +1,300 @@
+{
+  "item": [
+    {
+      "id": "e4c4d179-662a-4959-9780-8e6cee8a5a40",
+      "name": "Webhooks",
+      "description": {
+        "content": "Event notification configuration",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "941b0c54-1135-46de-87db-9604c49f96eb",
+          "name": "List Webhooks",
+          "request": {
+            "name": "List Webhooks",
+            "description": {
+              "content": "List all webhooks configured for a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hooks",
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e2ad3ea-2d2d-48d3-b4cb-b149f63c8ae6",
+              "name": "List of webhooks",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hooks",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"url\": \"http://AjKGsafOFuePwtQo.xtq5dGeVSCN3rXPckg+dSxVptcoIKSudP2jYcyf3hZIuxTKGIEDGC2DMmG0J\",\n    \"dataset\": \"string\",\n    \"filter\": \"string\",\n    \"projection\": \"string\",\n    \"true\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isDisabled\": false,\n    \"createdAt\": \"1993-12-31T15:52:36.976Z\"\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"url\": \"http://BEiqb.gsjdd2eN6A+IkP-DBiC+k7QhbX50L4eerQxLuKO4ZR-EhjeiXnx6QaElLgheh\",\n    \"dataset\": \"string\",\n    \"filter\": \"string\",\n    \"projection\": \"string\",\n    \"true\": [\n      \"string\",\n      \"string\"\n    ],\n    \"isDisabled\": false,\n    \"createdAt\": \"1990-07-24T19:57:36.152Z\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d95b98c8-4fb3-439b-a0aa-c4ff5e2ac469",
+          "name": "Create Webhook",
+          "request": {
+            "name": "Create Webhook",
+            "description": {
+              "content": "Create a new webhook for event notifications.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "hooks",
+                "projects",
+                ":projectId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId",
+                  "description": "Your Sanity project ID"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"dataset\": \"<string>\",\n  \"true\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter\": \"<string>\",\n  \"projection\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a380f8ef-7655-4735-bf7f-a7dc3d11ebe3",
+              "name": "Webhook created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "hooks",
+                    "projects",
+                    ":projectId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId",
+                      "description": "Your Sanity project ID"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"url\": \"<uri>\",\n  \"dataset\": \"<string>\",\n  \"true\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"filter\": \"<string>\",\n  \"projection\": \"<string>\",\n  \"secret\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"name\": \"string\",\n  \"url\": \"http://kKEekiCujlAYghFpMe.olx\",\n  \"dataset\": \"string\",\n  \"filter\": \"string\",\n  \"projection\": \"string\",\n  \"true\": [\n    \"string\",\n    \"string\"\n  ],\n  \"isDisabled\": false,\n  \"createdAt\": \"2022-06-20T12:37:56.132Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7f08ae14-93ad-4d06-a673-739ec33695da",
+    "name": "Sanity HTTP Assets Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

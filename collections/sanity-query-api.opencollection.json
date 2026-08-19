@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP Assets Query API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Query",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/query/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name (e.g., production)"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "GROQ query string"
+              },
+              {
+                "name": "perspective",
+                "value": "",
+                "type": "query",
+                "description": "Content perspective to query"
+              },
+              {
+                "name": "explain",
+                "value": "",
+                "type": "query",
+                "description": "Include query execution plan in response"
+              },
+              {
+                "name": "resultSourceMap",
+                "value": "",
+                "type": "query",
+                "description": "Include content source map metadata"
+              }
+            ]
+          },
+          "docs": "Query Content Lake using GROQ syntax. For queries under 11 KB, submit the query as a URL parameter. Use the CDN endpoint ({projectId}.apicdn.sanity.io) for edge-cached results."
+        },
+        {
+          "info": {
+            "name": "Query Documents (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/query/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Query Content Lake using GROQ syntax via POST for queries exceeding 11 KB or when query parameters need to be passed in the body."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

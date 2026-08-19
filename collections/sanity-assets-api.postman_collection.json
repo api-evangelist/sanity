@@ -1,0 +1,212 @@
+{
+  "item": [
+    {
+      "id": "bf7ceee8-aa55-4c6b-83f0-b3074909a8b6",
+      "name": "Assets",
+      "description": {
+        "content": "File and image asset management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f5d92f89-859c-4cf1-9cda-2955002853cc",
+          "name": "Upload Image Asset",
+          "request": {
+            "name": "Upload Image Asset",
+            "description": {
+              "content": "Upload an image asset to the Sanity Content Lake. Supports common image formats (JPEG, PNG, WebP, GIF, SVG).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "assets",
+                "images",
+                ":dataset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>",
+                  "description": "Original filename for the asset"
+                },
+                {
+                  "disabled": false,
+                  "key": "label",
+                  "value": "<string>",
+                  "description": "Human-readable label for the asset"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataset",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "image/*"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "file"
+            }
+          },
+          "response": [
+            {
+              "id": "45b276f4-3542-4ed1-80a8-3435f23ed1dc",
+              "name": "Asset uploaded successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "assets",
+                    "images",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filename",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "label",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "file"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"document\": {\n    \"_id\": \"string\",\n    \"_type\": \"sanity.fileAsset\",\n    \"url\": \"string\",\n    \"path\": \"string\",\n    \"mimeType\": \"string\",\n    \"size\": 895\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "222f4085-3802-40ca-87cf-1498b64870b0",
+    "name": "Sanity HTTP Assets API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

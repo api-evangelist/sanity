@@ -1,0 +1,170 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP Assets Projects API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects"
+          },
+          "docs": "List all Sanity projects accessible to the authenticated user, ordered by creation date."
+        },
+        {
+          "info": {
+            "name": "Create Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new Sanity project."
+        },
+        {
+          "info": {
+            "name": "Get Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve details for a specific Sanity project."
+        },
+        {
+          "info": {
+            "name": "Update Project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a Sanity project's settings."
+        },
+        {
+          "info": {
+            "name": "List Datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/datasets",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all datasets for a project."
+        },
+        {
+          "info": {
+            "name": "Create Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/datasets",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new dataset in a project."
+        },
+        {
+          "info": {
+            "name": "List Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/tokens",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List all API tokens for a project."
+        },
+        {
+          "info": {
+            "name": "Create Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/projects/:projectId/tokens",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new API token for a project. The token key is only returned at creation time and cannot be retrieved again."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

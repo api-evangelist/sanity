@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP Assets Listen API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listen",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Listen for Changes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/listen/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "GROQ query defining which documents to listen to"
+              },
+              {
+                "name": "includeResult",
+                "value": "",
+                "type": "query",
+                "description": "Include full document in change events"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Subscribe to real-time content changes via Server-Sent Events (SSE). The connection stays open and streams events when GROQ-matching documents are created, updated, or deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

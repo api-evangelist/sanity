@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP Assets API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload Image Asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/assets/images/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Original filename for the asset"
+              },
+              {
+                "name": "label",
+                "value": "",
+                "type": "query",
+                "description": "Human-readable label for the asset"
+              }
+            ]
+          },
+          "docs": "Upload an image asset to the Sanity Content Lake. Supports common image formats (JPEG, PNG, WebP, GIF, SVG)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

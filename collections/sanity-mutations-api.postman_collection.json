@@ -1,0 +1,234 @@
+{
+  "item": [
+    {
+      "id": "086cbe02-b0d9-4ad4-bd92-38dd9884f850",
+      "name": "Mutations",
+      "description": {
+        "content": "Create, update, and delete document operations",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "65d7fd1a-e703-4574-b855-10e7b9570659",
+          "name": "Mutate Documents",
+          "request": {
+            "name": "Mutate Documents",
+            "description": {
+              "content": "Apply a batch of mutations (create, createOrReplace, createIfNotExists, patch, delete) to documents in the dataset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "mutate",
+                ":dataset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "returnIds",
+                  "value": "<boolean>",
+                  "description": "Return document IDs of created/modified documents"
+                },
+                {
+                  "disabled": false,
+                  "key": "returnDocuments",
+                  "value": "<boolean>",
+                  "description": "Return full documents after mutations"
+                },
+                {
+                  "disabled": false,
+                  "key": "visibility",
+                  "value": "<string>",
+                  "description": "Mutation visibility mode"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataset",
+                  "description": "(Required) Dataset name"
+                },
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mutations\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "84cec9fb-321f-4567-9348-2ac24479c2eb",
+              "name": "Mutation results",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "mutate",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "returnIds",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "returnDocuments",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) Dataset name"
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mutations\": [\n    \"<object>\",\n    \"<object>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionId\": \"string\",\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"operation\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"operation\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d4345e5e-5941-4bb0-bf58-1d4e27b23806",
+    "name": "Sanity HTTP Assets Mutations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

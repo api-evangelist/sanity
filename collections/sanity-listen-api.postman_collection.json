@@ -1,0 +1,212 @@
+{
+  "item": [
+    {
+      "id": "55c68387-4662-4235-9f11-cfb98d60247e",
+      "name": "Listen",
+      "description": {
+        "content": "Real-time event streaming",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5ac56838-0cdf-46b6-88d6-b6d62dfc94cb",
+          "name": "Listen for Changes",
+          "request": {
+            "name": "Listen for Changes",
+            "description": {
+              "content": "Subscribe to real-time content changes via Server-Sent Events (SSE). The connection stays open and streams events when GROQ-matching documents are created, updated, or deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "data",
+                "listen",
+                ":dataset"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) GROQ query defining which documents to listen to"
+                },
+                {
+                  "disabled": false,
+                  "key": "includeResult",
+                  "value": "<boolean>",
+                  "description": "Include full document in change events"
+                },
+                {
+                  "disabled": false,
+                  "key": "visibility",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "dataset",
+                  "description": "(Required) "
+                },
+                {
+                  "description": "Your Sanity project ID",
+                  "type": "any",
+                  "value": "{{projectId}}",
+                  "key": "projectId"
+                },
+                {
+                  "description": "API version date (YYYY-MM-DD)",
+                  "type": "any",
+                  "value": "{{apiVersion}}",
+                  "key": "apiVersion"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/event-stream"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "82a04e30-05c6-4375-8287-d6b5d0225dc1",
+              "name": "SSE stream of change events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "data",
+                    "listen",
+                    ":dataset"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "includeResult",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "visibility",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "dataset",
+                      "description": "(Required) "
+                    },
+                    {
+                      "description": "Your Sanity project ID",
+                      "type": "any",
+                      "value": "{{projectId}}",
+                      "key": "projectId"
+                    },
+                    {
+                      "description": "API version date (YYYY-MM-DD)",
+                      "type": "any",
+                      "value": "{{apiVersion}}",
+                      "key": "apiVersion"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/event-stream"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/event-stream"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "Your Sanity project ID",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-project-id",
+      "key": "projectId"
+    },
+    {
+      "description": {
+        "content": "API version date (YYYY-MM-DD)",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "2024-01-01",
+      "key": "apiVersion"
+    },
+    {
+      "type": "string",
+      "value": "https://{{projectId}}.api.sanity.io/v{{apiVersion}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b67d6ee0-b07b-4962-b316-ebccb84fb23d",
+    "name": "Sanity HTTP Assets Listen API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.\n\nContact Support:\n Name: Sanity Support",
+      "type": "text/plain"
+    }
+  }
+}

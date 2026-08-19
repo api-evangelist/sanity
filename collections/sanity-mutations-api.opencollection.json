@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Sanity HTTP Assets Mutations API",
+    "version": "v2024-01-01"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mutations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mutate Documents",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{projectId}.api.sanity.io/v{apiVersion}/data/mutate/:dataset",
+            "params": [
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "path",
+                "description": "Dataset name"
+              },
+              {
+                "name": "returnIds",
+                "value": "",
+                "type": "query",
+                "description": "Return document IDs of created/modified documents"
+              },
+              {
+                "name": "returnDocuments",
+                "value": "",
+                "type": "query",
+                "description": "Return full documents after mutations"
+              },
+              {
+                "name": "visibility",
+                "value": "",
+                "type": "query",
+                "description": "Mutation visibility mode"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Apply a batch of mutations (create, createOrReplace, createIfNotExists, patch, delete) to documents in the dataset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
