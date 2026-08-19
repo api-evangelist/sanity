@@ -33,7 +33,7 @@ created: '2026-05-02'
 modified: '2026-05-30'
 x-profiled: 2026-05
 url: https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: sanity:sanity-mutation-api
   name: Sanity Mutation API
