@@ -58,6 +58,11 @@ apis:
   humanURL: https://www.sanity.io/docs/http-reference
   tags:
   - Assets
+  - Image
+  - File
+  - Upload
+  tags_raw:
+  - Assets
   - Images
   - Files
   - Upload
@@ -72,6 +77,11 @@ apis:
     Authentication uses Bearer tokens.
   humanURL: https://www.sanity.io/docs/projects-api
   tags:
+  - Project
+  - Datasets
+  - Access Control
+  - Tokens
+  tags_raw:
   - Projects
   - Datasets
   - Access Control
@@ -87,6 +97,11 @@ apis:
     filter expressions.
   humanURL: https://www.sanity.io/docs/http-reference
   tags:
+  - Webhook
+  - Event
+  - Notification
+  - Real-Time
+  tags_raw:
   - Webhooks
   - Events
   - Notifications
@@ -107,6 +122,11 @@ apis:
     matching documents change.
   humanURL: https://www.sanity.io/docs/http-reference
   tags:
+  - Real-Time
+  - SSE
+  - Event
+  - Streaming
+  tags_raw:
   - Real-Time
   - SSE
   - Events
@@ -138,6 +158,11 @@ apis:
   - Scheduling
   - Publishing
   - Content Calendar
+  - Workflows
+  tags_raw:
+  - Scheduling
+  - Publishing
+  - Content Calendar
   - Workflow
   properties:
   - type: Documentation
@@ -149,6 +174,11 @@ apis:
     Lake documents, supporting semantic search and AI-powered content retrieval workflows.
   humanURL: https://www.sanity.io/docs/http-reference
   tags:
+  - Embeddings
+  - Vector Search
+  - Artificial Intelligence
+  - Semantic Search
+  tags_raw:
   - Embeddings
   - Vector Search
   - AI
@@ -212,6 +242,8 @@ apis:
   description: Project and dataset management
   humanURL: https://www.sanity.io/docs/http-query
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -246,6 +278,8 @@ apis:
   description: Event notification configuration
   humanURL: https://www.sanity.io/docs/http-query
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
