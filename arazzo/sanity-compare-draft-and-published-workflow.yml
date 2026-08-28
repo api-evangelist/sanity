@@ -13,8 +13,8 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: sanityApi
-  url: ../openapi/sanity-openapi.yml
+- name: queryApi
+  url: ../openapi/sanity-query-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: compare-draft-and-published

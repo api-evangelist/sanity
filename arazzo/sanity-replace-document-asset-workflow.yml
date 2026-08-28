@@ -10,8 +10,14 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sanityApi
-  url: ../openapi/sanity-openapi.yml
+- name: assetsApi
+  url: ../openapi/sanity-assets-api-openapi.yml
+  type: openapi
+- name: mutationsApi
+  url: ../openapi/sanity-mutations-api-openapi.yml
+  type: openapi
+- name: queryApi
+  url: ../openapi/sanity-query-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: replace-document-asset

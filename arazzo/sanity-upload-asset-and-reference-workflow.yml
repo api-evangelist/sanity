@@ -11,8 +11,11 @@ info:
     read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: sanityApi
-  url: ../openapi/sanity-openapi.yml
+- name: assetsApi
+  url: ../openapi/sanity-assets-api-openapi.yml
+  type: openapi
+- name: mutationsApi
+  url: ../openapi/sanity-mutations-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: upload-asset-and-reference
