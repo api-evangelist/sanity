@@ -1,0 +1,1 @@
+{"resource":"https://mcp.sanity.io/mcp","authorization_servers":["https://mcp.sanity.io"],"scopes_supported":["global"],"bearer_methods_supported":["header"],"resource_documentation":"https://mcp.sanity.io","resource_name":"Sanity"}

@@ -1,12 +1,7 @@
 {
   "provider": "sanity",
   "sources": [
-    "sanity-assets-api-openapi.yml",
-    "sanity-listen-api-openapi.yml",
-    "sanity-mutations-api-openapi.yml",
-    "sanity-projects-api-openapi.yml",
-    "sanity-query-api-openapi.yml",
-    "sanity-webhooks-api-openapi.yml"
+    "_original/sanity-openapi.yml"
   ],
   "outputs": [
     "sanity-assets-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sanity-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "sanity-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sanity-listen-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sanity-mutations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sanity-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sanity-query-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "sanity-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

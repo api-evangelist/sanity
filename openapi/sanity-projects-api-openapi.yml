@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Sanity HTTP Assets Projects API
+  title: Sanity HTTP Projects API
   description: The Sanity HTTP API provides access to the Sanity Content Lake platform, enabling querying, mutating, and managing structured content. The API supports GROQ queries, real-time event streaming, asset management, project management, webhooks, scheduling, and AI-powered content agents. Authentication uses Bearer tokens generated from Sanity project settings.
   version: v2024-01-01
   contact:
@@ -240,20 +240,18 @@ paths:
                 $ref: '#/components/schemas/TokenWithKey'
 components:
   schemas:
-    Dataset:
+    Token:
       type: object
       properties:
-        name:
+        id:
           type: string
-        aclMode:
+        label:
           type: string
-          enum:
-          - public
-          - private
-        tags:
-          type: array
-          items:
-            type: object
+        roleName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     TokenWithKey:
       allOf:
       - $ref: '#/components/schemas/Token'
@@ -280,18 +278,20 @@ components:
         updatedAt:
           type: string
           format: date-time
-    Token:
+    Dataset:
       type: object
       properties:
-        id:
+        name:
           type: string
-        label:
+        aclMode:
           type: string
-        roleName:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
+          enum:
+          - public
+          - private
+        tags:
+          type: array
+          items:
+            type: object
   securitySchemes:
     BearerAuth:
       type: http

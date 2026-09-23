@@ -1,0 +1,30 @@
+# Front Door AI Index — sanity — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: sanity
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.sanity.io
+  final_host: www.sanity.io
+  ownership: own
+  owner: sanity
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 15
+  host_score: 15
+  density: 13.16
+  words: 1140
+  tiers:
+    agentic: 5
+    core: 9
+    model: 1
+  ambiguous: 8
+  top_terms:
+    AI: 9
+    agent: 7
+    agentic: 3
+    AI agent: 2
+    Claude: 1
+    intelligence: 1
