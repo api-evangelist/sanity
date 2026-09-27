@@ -240,18 +240,6 @@ paths:
                 $ref: '#/components/schemas/TokenWithKey'
 components:
   schemas:
-    Token:
-      type: object
-      properties:
-        id:
-          type: string
-        label:
-          type: string
-        roleName:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
     TokenWithKey:
       allOf:
       - $ref: '#/components/schemas/Token'
@@ -276,6 +264,18 @@ components:
           type: string
           format: date-time
         updatedAt:
+          type: string
+          format: date-time
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        roleName:
+          type: string
+        createdAt:
           type: string
           format: date-time
     Dataset:

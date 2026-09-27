@@ -63,90 +63,6 @@ apis:
   properties:
   - type: Documentation
     url: https://www.sanity.io/docs/http-reference
-- aid: sanity:sanity-assets-api
-  name: Sanity Assets API
-  description: >-
-    The Sanity Assets API handles uploading, retrieving, and managing file and image assets in Content
-    Lake. Assets are stored as documents and referenced from content documents.
-  humanURL: https://www.sanity.io/docs/http-reference
-  tags:
-  - Assets
-  - Image
-  - File
-  - Upload
-  tags_raw:
-  - Assets
-  - Images
-  - Files
-  - Upload
-  properties:
-  - type: Documentation
-    url: https://www.sanity.io/docs/http-reference
-- aid: sanity:sanity-projects-api
-  name: Sanity Projects API
-  description: >-
-    The Sanity Projects API enables programmatic management of Sanity projects including creating projects,
-    managing datasets, configuring CORS origins, managing access tokens, and checking user permissions.
-    Authentication uses Bearer tokens.
-  humanURL: https://www.sanity.io/docs/projects-api
-  tags:
-  - Project
-  - Datasets
-  - Access Control
-  - Tokens
-  tags_raw:
-  - Projects
-  - Datasets
-  - Access Control
-  - Tokens
-  properties:
-  - type: Documentation
-    url: https://www.sanity.io/docs/projects-api
-- aid: sanity:sanity-webhooks-api
-  name: Sanity Webhooks API
-  description: >-
-    The Sanity Webhooks API enables configuring event-driven notifications for content changes. Webhooks
-    can be created to trigger on document create, update, delete, and publish events with customizable
-    filter expressions.
-  humanURL: https://www.sanity.io/docs/http-reference
-  tags:
-  - Webhook
-  - Event
-  - Notification
-  - Real-Time
-  tags_raw:
-  - Webhooks
-  - Events
-  - Notifications
-  - Real-Time
-  properties:
-  - type: Documentation
-    url: https://www.sanity.io/docs/http-reference
-  - type: Documentation
-    url: https://www.sanity.io/docs/webhooks
-  - type: AsyncAPI
-    url: >-
-      https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/asyncapi/sanity-webhooks-asyncapi.yml
-- aid: sanity:sanity-listen-api
-  name: Sanity Listen API
-  description: >-
-    The Sanity Listen API provides real-time event streaming via Server-Sent Events (SSE) for content
-    changes in a dataset. Clients can subscribe to a GROQ query and receive real-time notifications when
-    matching documents change.
-  humanURL: https://www.sanity.io/docs/http-reference
-  tags:
-  - Real-Time
-  - SSE
-  - Event
-  - Streaming
-  tags_raw:
-  - Real-Time
-  - SSE
-  - Events
-  - Streaming
-  properties:
-  - type: Documentation
-    url: https://www.sanity.io/docs/http-reference
 - aid: sanity:sanity-roles-api
   name: Sanity Roles API
   description: >-
@@ -201,10 +117,14 @@ apis:
     url: https://www.sanity.io/docs/http-reference
 - aid: sanity:sanity-assets-api
   name: Sanity Assets API
-  description: File and image asset management
-  humanURL: https://www.sanity.io/docs/http-query
+  description: The Sanity Assets API handles uploading, retrieving, and managing file and image assets in
+    Content Lake. Assets are stored as documents and referenced from content documents.
+  humanURL: https://www.sanity.io/docs/http-reference
   tags:
   - Assets
+  - Image
+  - File
+  - Upload
   properties:
   - type: OpenAPI
     url: openapi/sanity-assets-api-openapi.yml
@@ -216,12 +136,25 @@ apis:
     url: json-schema/sanity-webhook-schema.json
   - type: GraphQL
     url: graphql/sanity-graphql.md
+  - type: Documentation
+    url: https://www.sanity.io/docs/http-reference
+  tags_raw:
+  - Assets
+  - Images
+  - Files
+  - Upload
 - aid: sanity:sanity-listen-api
   name: Sanity Listen API
-  description: Real-time event streaming
-  humanURL: https://www.sanity.io/docs/http-query
+  description: The Sanity Listen API provides real-time event streaming via Server-Sent Events (SSE) for
+    content changes in a dataset. Clients can subscribe to a GROQ query and receive real-time notifications
+    when matching documents change.
+  humanURL: https://www.sanity.io/docs/http-reference
   tags:
   - Listen
+  - Real-Time
+  - SSE
+  - Event
+  - Streaming
   properties:
   - type: OpenAPI
     url: openapi/sanity-listen-api-openapi.yml
@@ -233,6 +166,13 @@ apis:
     url: json-schema/sanity-webhook-schema.json
   - type: GraphQL
     url: graphql/sanity-graphql.md
+  - type: Documentation
+    url: https://www.sanity.io/docs/http-reference
+  tags_raw:
+  - Real-Time
+  - SSE
+  - Events
+  - Streaming
 - aid: sanity:sanity-mutations-api
   name: Sanity Mutations API
   description: Create, update, and delete document operations
@@ -252,12 +192,20 @@ apis:
     url: graphql/sanity-graphql.md
 - aid: sanity:sanity-projects-api
   name: Sanity Projects API
-  description: Project and dataset management
-  humanURL: https://www.sanity.io/docs/http-query
+  description: The Sanity Projects API enables programmatic management of Sanity projects including creating
+    projects, managing datasets, configuring CORS origins, managing access tokens, and checking user permissions.
+    Authentication uses Bearer tokens.
+  humanURL: https://www.sanity.io/docs/projects-api
   tags:
   - Project
+  - Datasets
+  - Access Control
+  - Tokens
   tags_raw:
   - Projects
+  - Datasets
+  - Access Control
+  - Tokens
   properties:
   - type: OpenAPI
     url: openapi/sanity-projects-api-openapi.yml
@@ -269,6 +217,8 @@ apis:
     url: json-schema/sanity-webhook-schema.json
   - type: GraphQL
     url: graphql/sanity-graphql.md
+  - type: Documentation
+    url: https://www.sanity.io/docs/projects-api
 - aid: sanity:sanity-query-api
   name: Sanity Query API
   description: GROQ query operations against Content Lake
@@ -288,12 +238,20 @@ apis:
     url: graphql/sanity-graphql.md
 - aid: sanity:sanity-webhooks-api
   name: Sanity Webhooks API
-  description: Event notification configuration
-  humanURL: https://www.sanity.io/docs/http-query
+  description: The Sanity Webhooks API enables configuring event-driven notifications for content changes.
+    Webhooks can be created to trigger on document create, update, delete, and publish events with customizable
+    filter expressions.
+  humanURL: https://www.sanity.io/docs/http-reference
   tags:
   - Webhook
+  - Event
+  - Notification
+  - Real-Time
   tags_raw:
   - Webhooks
+  - Events
+  - Notifications
+  - Real-Time
   properties:
   - type: OpenAPI
     url: openapi/sanity-webhooks-api-openapi.yml
@@ -305,6 +263,12 @@ apis:
     url: json-schema/sanity-webhook-schema.json
   - type: GraphQL
     url: graphql/sanity-graphql.md
+  - type: Documentation
+    url: https://www.sanity.io/docs/http-reference
+  - type: Documentation
+    url: https://www.sanity.io/docs/webhooks
+  - type: AsyncAPI
+    url: https://raw.githubusercontent.com/api-evangelist/sanity/refs/heads/main/asyncapi/sanity-webhooks-asyncapi.yml
 common:
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/sanity/overview

@@ -79,15 +79,6 @@ paths:
                 $ref: '#/components/schemas/MutationResponse'
 components:
   schemas:
-    MutationsRequest:
-      type: object
-      required:
-      - mutations
-      properties:
-        mutations:
-          type: array
-          items:
-            type: object
     MutationResponse:
       type: object
       properties:
@@ -102,6 +93,15 @@ components:
                 type: string
               operation:
                 type: string
+    MutationsRequest:
+      type: object
+      required:
+      - mutations
+      properties:
+        mutations:
+          type: array
+          items:
+            type: object
   securitySchemes:
     BearerAuth:
       type: http
