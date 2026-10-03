@@ -97,7 +97,7 @@ components:
           description: GROQ filter expression
         projection:
           type: string
-        true:
+        'on':
           type: array
           items:
             type: string
@@ -112,7 +112,7 @@ components:
       - name
       - url
       - dataset
-      - true
+      - 'on'
       properties:
         name:
           type: string
@@ -125,7 +125,7 @@ components:
           type: string
         projection:
           type: string
-        true:
+        'on':
           type: array
           items:
             type: string

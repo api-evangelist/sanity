@@ -248,24 +248,6 @@ components:
           key:
             type: string
             description: The API token key (only returned at creation)
-    Project:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique project ID
-        displayName:
-          type: string
-        organizationId:
-          type: string
-        isBlocked:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     Token:
       type: object
       properties:
@@ -292,6 +274,24 @@ components:
           type: array
           items:
             type: object
+    Project:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique project ID
+        displayName:
+          type: string
+        organizationId:
+          type: string
+        isBlocked:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
   securitySchemes:
     BearerAuth:
       type: http
