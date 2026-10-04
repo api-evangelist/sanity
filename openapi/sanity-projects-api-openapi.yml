@@ -240,14 +240,6 @@ paths:
                 $ref: '#/components/schemas/TokenWithKey'
 components:
   schemas:
-    TokenWithKey:
-      allOf:
-      - $ref: '#/components/schemas/Token'
-      - type: object
-        properties:
-          key:
-            type: string
-            description: The API token key (only returned at creation)
     Token:
       type: object
       properties:
@@ -260,6 +252,14 @@ components:
         createdAt:
           type: string
           format: date-time
+    TokenWithKey:
+      allOf:
+      - $ref: '#/components/schemas/Token'
+      - type: object
+        properties:
+          key:
+            type: string
+            description: The API token key (only returned at creation)
     Dataset:
       type: object
       properties:

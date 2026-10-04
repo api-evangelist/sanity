@@ -80,32 +80,6 @@ paths:
                 $ref: '#/components/schemas/Webhook'
 components:
   schemas:
-    Webhook:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        url:
-          type: string
-          format: uri
-        dataset:
-          type: string
-        filter:
-          type: string
-          description: GROQ filter expression
-        projection:
-          type: string
-        'on':
-          type: array
-          items:
-            type: string
-        isDisabled:
-          type: boolean
-        createdAt:
-          type: string
-          format: date-time
     WebhookInput:
       type: object
       required:
@@ -135,6 +109,32 @@ components:
             - delete
         secret:
           type: string
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+          format: uri
+        dataset:
+          type: string
+        filter:
+          type: string
+          description: GROQ filter expression
+        projection:
+          type: string
+        'on':
+          type: array
+          items:
+            type: string
+        isDisabled:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
   securitySchemes:
     BearerAuth:
       type: http
