@@ -31,6 +31,434 @@
     registered_name: io.sanity.www/mcp
     register_id: io.sanity.www/mcp
     detected_by: sweep-agent-tools.py
-    detected: '2026-10-14'
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-pipedream
+  label: Pipedream
+  partner: pipedream
+  partner_name: Pipedream
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/sanity
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: sanity
+    matched_domain: sanity.io
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: sanity
+    actions: true
+    sources: true
+    builder: Pipedream repo (component)
+  status: pending-generation
+  arazzo: null
+- slug: sanity-algolia
+  label: Algolia
+  partner: algolia
+  partner_name: Algolia
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/algolia
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Algolia
+    matched_domain: algolia.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Algolia
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-bigcommerce
+  label: Bigcommerce
+  partner: bigcommerce
+  partner_name: Bigcommerce
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/bigcommerce
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Bigcommerce
+    matched_domain: bigcommerce.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Bigcommerce
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-cloudinary
+  label: Cloudinary
+  partner: cloudinary
+  partner_name: Cloudinary
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/cloudinary
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Cloudinary
+    matched_domain: cloudinary.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Cloudinary
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-alex-canessa
+  label: Alex Canessa
+  partner: commerce-layer
+  partner_name: Alex Canessa
+  category: Sanity plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/plugins/sanity-commerce
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Alex Canessa
+    matched_domain: commercelayer.io
+    matched_by: domain
+    listings: 2
+    sample_apps:
+    - Commerce Layer
+    - sanity-commerce
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+    npm_package: '@commercelayer/sanity-plugin-commerce'
+    domain_source: npm package record (homepage / author.url / author.email)
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-frontify
+  label: Frontify
+  partner: frontify
+  partner_name: Frontify
+  category: Sanity plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/plugins/frontify-dam
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Frontify
+    matched_domain: frontify.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - frontify-dam
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+    npm_package: '@frontify/sanity-plugin-frontify'
+    domain_source: npm package record (homepage / author.url / author.email)
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-imagekit-developer
+  label: ImageKit Developer
+  partner: imagekit
+  partner_name: ImageKit Developer
+  category: Sanity plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/plugins/imagekit
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: ImageKit Developer
+    matched_domain: imagekit.io
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - imagekit
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+    npm_package: sanity-plugin-imagekit
+    domain_source: npm package record (homepage / author.url / author.email)
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-mux
+  label: Mux
+  partner: mux-com
+  partner_name: Mux
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/mux
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Mux
+    matched_domain: mux.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Mux
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-nacelle
+  label: Nacelle
+  partner: nacelle
+  partner_name: Nacelle
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/nacelle
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Nacelle
+    matched_domain: nacelle.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Nacelle
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-orange-logic-dev-team
+  label: Orange Logic Dev Team
+  partner: orangelogic
+  partner_name: Orange Logic Dev Team
+  category: Sanity plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/plugins/orangedam-asset-browser
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Orange Logic Dev Team
+    matched_domain: orangelogic.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - orangedam-asset-browser
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+    npm_package: '@orangelogic/sanity-plugin-asset-source-cortex'
+    domain_source: npm package record (homepage / author.url / author.email)
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-phrase
+  label: Phrase
+  partner: phrase
+  partner_name: Phrase
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/phrase
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Phrase
+    matched_domain: phrase.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Phrase
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/shopify
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Shopify
+    matched_domain: shopify.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Shopify
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-smartling
+  label: Smartling
+  partner: smartling
+  partner_name: Smartling
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/smartling
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Smartling
+    matched_domain: smartling.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Smartling
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-transifex
+  label: Transifex
+  partner: transifex
+  partner_name: Transifex
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/transifex
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Transifex
+    matched_domain: transifex.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Transifex
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-uniform-systems-inc
+  label: Uniform Systems, Inc.
+  partner: uniform
+  partner_name: Uniform Systems, Inc.
+  category: Sanity plugin
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/plugins/uniform-plugin-for-sanity
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Uniform Systems, Inc.
+    matched_domain: uniform.dev
+    matched_by: domain
+    listings: 2
+    sample_apps:
+    - Uniform
+    - uniform-plugin-for-sanity
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+    npm_package: '@uniformdev/sanity-plugin-uniform'
+    domain_source: npm package record (homepage / author.url / author.email)
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-vercel
+  label: Vercel
+  partner: vercel
+  partner_name: Vercel
+  category: Sanity technology partner
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.sanity.io/technology-partners/vercel
+  source: edge
+  relationship: platform-app
+  contract_reference:
+    register: Sanity Exchange (plugins + technology partners)
+    spec_file: null
+    role: sanity-app
+    registered_name: Vercel
+    matched_domain: vercel.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Vercel
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
