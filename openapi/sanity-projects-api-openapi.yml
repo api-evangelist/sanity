@@ -240,26 +240,6 @@ paths:
                 $ref: '#/components/schemas/TokenWithKey'
 components:
   schemas:
-    Token:
-      type: object
-      properties:
-        id:
-          type: string
-        label:
-          type: string
-        roleName:
-          type: string
-        createdAt:
-          type: string
-          format: date-time
-    TokenWithKey:
-      allOf:
-      - $ref: '#/components/schemas/Token'
-      - type: object
-        properties:
-          key:
-            type: string
-            description: The API token key (only returned at creation)
     Dataset:
       type: object
       properties:
@@ -274,6 +254,18 @@ components:
           type: array
           items:
             type: object
+    Token:
+      type: object
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        roleName:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
     Project:
       type: object
       properties:
@@ -292,6 +284,14 @@ components:
         updatedAt:
           type: string
           format: date-time
+    TokenWithKey:
+      allOf:
+      - $ref: '#/components/schemas/Token'
+      - type: object
+        properties:
+          key:
+            type: string
+            description: The API token key (only returned at creation)
   securitySchemes:
     BearerAuth:
       type: http
