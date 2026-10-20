@@ -500,6 +500,221 @@ edges:
     builder: Pipedream repo (component)
   detected_by: sweep-workflow-automation.py
   first_seen: '2026-10-15'
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/sanity-io/agent-toolkit
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: sanity-io
+    current: true
+    repos:
+    - repo: sanity-io/agent-toolkit
+      archived: false
+      lapsed: false
+      pushed: '2026-10-14'
+    - repo: sanity-io/context
+      archived: false
+      lapsed: false
+      pushed: '2026-10-20'
+    - repo: sanity-io/next-sanity
+      archived: false
+      lapsed: false
+      pushed: '2026-10-20'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: skills.sh
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://www.skills.sh/sanity-io/agent-toolkit
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - sanity-io/agent-toolkit
+    - sanity-io/context
+    - sanity-io/next-sanity
+    repo_verified: true
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: skills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - create-agent-with-sanity-context
+    - dial-your-context
+    - portable-text-conversion
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: claude-plugins.dev
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://claude-plugins.dev/skills/@sanity-io/agent-toolkit
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - sanity-io/agent-toolkit
+    repo_verified: true
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - portable-text-conversion
+    - portable-text-serialization
+    - sanity-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: SkillsMP (skillsmp.com)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://skillsmp.com/creators/sanity-io/agent-toolkit
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - sanity-io
+    - sanity-io/agent-toolkit
+    repo_verified: true
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - skills-content-experimentation-best-practices
+    - skills-content-modeling-best-practices
+    - skills-sanity-best-practices
+    - skills-seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: officialskills.sh
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://officialskills.sh/sanity-io/skills
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - sanity-io/skills
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: officialskills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - sanity-best-practices
+    - seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
+- partner_name: VoltAgent awesome-agent-skills (community list)
+  partner: null
+  partner_match: register
+  type: register
+  direction: partner-built
+  category: Agent Skills register
+  evidence: https://github.com/VoltAgent/awesome-agent-skills
+  channel: standard-directory
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: register-listing
+  degree: listed
+  report_only: true
+  agent_skills_register:
+    repos:
+    - sanity-io/skills
+    repo_verified: false
+    signal_note: the provider's own-org repos the register lists; skill / install counts never read
+  contract_reference:
+    register: VoltAgent awesome-agent-skills (community list) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - sanity-best-practices
+    - seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
 method: searched
 checked:
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
@@ -508,6 +723,12 @@ checked:
 - https://registry.modelcontextprotocol.io/v0/servers
 - https://www.sanity.io/exchange-sitemap.xml
 - slack/integrations/slack-integration-edges.yml
+- https://api.github.com
+- https://claude-plugins.dev/sitemap.xml
+- https://github.com/VoltAgent/awesome-agent-skills
+- https://officialskills.sh/sitemap.xml
+- https://skillsmp.com/sitemap.xml
+- https://www.skills.sh/sitemap.xml
 source: https://hightouch.com/docs/destinations/sanity
 marketplace_apps:
 - marketplace: own

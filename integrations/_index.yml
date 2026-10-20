@@ -475,3 +475,150 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: sanity-agent-skills-own-github-org
+  label: Agent Skills (own GitHub org)
+  partner_name: Agent Skills (own GitHub org)
+  category: Agent Skills package
+  type: register
+  channel: provider-built
+  evidence: https://github.com/sanity-io/agent-toolkit
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-skills-sh
+  label: skills.sh
+  partner_name: skills.sh
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://www.skills.sh/sanity-io/agent-toolkit
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: skills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - create-agent-with-sanity-context
+    - dial-your-context
+    - portable-text-conversion
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-claude-plugins-dev
+  label: claude-plugins.dev
+  partner_name: claude-plugins.dev
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://claude-plugins.dev/skills/@sanity-io/agent-toolkit
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: claude-plugins.dev (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - portable-text-conversion
+    - portable-text-serialization
+    - sanity-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-skillsmp-skillsmp-com
+  label: SkillsMP (skillsmp.com)
+  partner_name: SkillsMP (skillsmp.com)
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://skillsmp.com/creators/sanity-io/agent-toolkit
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: SkillsMP (skillsmp.com) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - skills-content-experimentation-best-practices
+    - skills-content-modeling-best-practices
+    - skills-sanity-best-practices
+    - skills-seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-officialskills-sh
+  label: officialskills.sh
+  partner_name: officialskills.sh
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://officialskills.sh/sanity-io/skills
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: officialskills.sh (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - sanity-best-practices
+    - seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: sanity-voltagent-awesome-agent-skills-community-list
+  label: VoltAgent awesome-agent-skills (community list)
+  partner_name: VoltAgent awesome-agent-skills (community list)
+  category: Agent Skills register
+  type: register
+  channel: standard-directory
+  evidence: https://github.com/VoltAgent/awesome-agent-skills
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: VoltAgent awesome-agent-skills (community list) (public sitemap / list)
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-listing
+    matched_org: sanity-io
+    matched_by: org-profile-domain:sanity.io
+    sample_skills:
+    - content-experimentation-best-practices
+    - content-modeling-best-practices
+    - sanity-best-practices
+    - seo-aeo-best-practices
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
