@@ -734,6 +734,26 @@ edges:
   category: IDE / developer extension marketplace listing
   badges:
   - Verified namespace
+- partner_name: Netlify (own)
+  partner: netlify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.netlify.com/integrations/sanity/
+  mirror_of: netlify/integrations/netlify-integration-edges.yml
+  apps:
+  - Sanity
+  - Sanity Setup Guide for Netlify Create
+  - Sanity Studio Dashboard Widget for Netlify
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: CMS
+  partner_tier: listing
 method: searched
 checked:
 - https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/
@@ -749,6 +769,7 @@ checked:
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
 - eclipse/integrations/eclipse-integration-edges.yml
+- netlify/integrations/netlify-integration-edges.yml
 source: https://hightouch.com/docs/destinations/sanity
 marketplace_apps:
 - marketplace: own
